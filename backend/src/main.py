@@ -105,14 +105,14 @@ def init_database():
                 )
                 db.session.add(config)
         
-        # 创建默认API密钥
-        openai_key = os.getenv('OPENAI_API_KEY', '039c31ba-ebd5-429b-8e88-593eb0e0dc67')
-        if not APIKey.query.filter_by(service_type='openai').first():
+        # 创建默认API密钥 - 豆包API
+        doubao_key = os.getenv('DOUBAO_API_KEY', '039c31ba-ebd5-429b-8e88-593eb0e0dc67')
+        if not APIKey.query.filter_by(service_type='doubao').first():
             api_key = APIKey(
-                name='用户提供的OpenAI密钥',
-                service_type='openai',
-                api_key=openai_key,
-                api_base=os.getenv('OPENAI_API_BASE', 'https://api.openai.com/v1'),
+                name='用户提供的豆包API密钥',
+                service_type='doubao',
+                api_key=doubao_key,
+                api_base=os.getenv('DOUBAO_API_BASE', 'https://ark.cn-beijing.volces.com/api/v3'),
                 priority=1,
                 is_active=True
             )

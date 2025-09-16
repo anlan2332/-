@@ -3,15 +3,16 @@
 """
 import os
 import json
-import openai
+import threading
 from datetime import datetime
 from flask import Blueprint, request, jsonify, session
 from src.models.database import db, User, Paper, WritingAssistant, APIKey
 from src.websocket_manager import notify_paper_progress, ws_manager
+from src.utils.doubao_client import get_doubao_client, DoubaoClient
 
 thesis_bp = Blueprint('thesis', __name__)
 
-# 您的API密钥和助手指令
+# 您的豆包API密钥和助手指令
 DEFAULT_API_KEY = "039c31ba-ebd5-429b-8e88-593eb0e0dc67"
 ASSISTANT_INSTRUCTIONS = """1.在保持大意和字数不变或缩减的情况下，拟用学术化的语言重新输出以上内容，减少小开头，少aigc重复率，增强段落衔接感，尽量减少首先、然后、再者、最后等相似词汇的使用次数。
 2.以以上文献为我撰写国内外研究，例如学者xx在什么什么方面做了什么什么，然后在其学者名字后面加[]序号
@@ -26,18 +27,18 @@ ASSISTANT_INSTRUCTIONS = """1.在保持大意和字数不变或缩减的情况�
 整篇文章用学术化的语言输出，减少小开头，少aigc重复率，增强段落衔接感，尽量减少首先、然后、再者、最后等相似词汇的使用次数，仔细反复校对是否符合开题和任务书以及模板，不要自作主张，确保内容和数据正确。
 模仿中国本科生的水平和角度去撰写，降低aigc率，逻辑要严谨，具有研究深度，结构模仿人类，不要太完美。取消首先其次等用语，要用停顿感，尽量减少首先、然后、再者、最后等相似词汇的使用次数，减少小开，头不要一气呵成明白吗。"""
 
-def get_openai_client():
-    """获取OpenAI客户端"""
+def get_doubao_api_client():
+    """获取豆包API客户端"""
     try:
         # 优先从数据库获取活跃的API密钥
-        api_key = APIKey.query.filter_by(service_type='openai', is_active=True).order_by(APIKey.priority).first()
+        api_key = APIKey.query.filter_by(service_type='doubao', is_active=True).order_by(APIKey.priority).first()
         if api_key:
-            return openai.OpenAI(api_key=api_key.api_key, base_url=api_key.api_base)
+            return get_doubao_client(api_key.api_key)
         else:
             # 使用默认密钥
-            return openai.OpenAI(api_key=DEFAULT_API_KEY)
+            return get_doubao_client(DEFAULT_API_KEY)
     except Exception as e:
-        print(f"获取OpenAI客户端失败: {e}")
+        print(f"获取豆包API客户端失败: {e}")
         return None
 
 def log_user_activity(user_id: int, action: str, details: dict = None):
@@ -172,27 +173,30 @@ def generate_thesis():
         # 发送进度通知
         notify_paper_progress(user_id, paper_id, 10, '开始生成论文...')
         
-        # 调用AI生成
-        client = get_openai_client()
+        # 调用豆包AI生成
+        client = get_doubao_api_client()
         if not client:
             paper.status = 'failed'
             db.session.commit()
             return jsonify({'success': False, 'message': 'AI服务暂时不可用'}), 500
         
         try:
-            notify_paper_progress(user_id, paper_id, 30, '正在调用AI模型...')
+            notify_paper_progress(user_id, paper_id, 30, '正在调用豆包AI模型...')
             
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "你是一个专业的学术写作助手，擅长生成高质量的学术论文。"},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=4000,
-                temperature=0.7
+            response = client.generate_thesis_content(
+                title=paper.title,
+                field=config.get('field', ''),
+                education_level=config.get('education_level', ''),
+                keywords=config.get('keywords', ''),
+                description=config.get('description', ''),
+                assistant_instructions=ASSISTANT_INSTRUCTIONS
             )
             
-            content = response.choices[0].message.content
+            # 检查是否有错误
+            if 'error' in response:
+                raise Exception(response['error']['message'])
+            
+            content = response['choices'][0]['message']['content']
             
             notify_paper_progress(user_id, paper_id, 80, '正在处理生成结果...')
             
