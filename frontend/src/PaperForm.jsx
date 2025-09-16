@@ -36,6 +36,14 @@ export function PaperForm() {
   const [searchingReferences, setSearchingReferences] = useState(false)
   const [orderInfo, setOrderInfo] = useState(null)
   const [showOrderModal, setShowOrderModal] = useState(false)
+  const [proposalFile, setProposalFile] = useState(null)
+  const [proposalContent, setProposalContent] = useState('')
+  const [proposalAnalysis, setProposalAnalysis] = useState(null)
+  const [uploadingProposal, setUploadingProposal] = useState(false)
+  const [analyzingProposal, setAnalyzingProposal] = useState(false)
+  const [customOutline, setCustomOutline] = useState('')
+  const [showCustomOutline, setShowCustomOutline] = useState(false)
+  const [generatingFromProposal, setGeneratingFromProposal] = useState(false)
 
   // 模拟WebSocket连接状态
   useEffect(() => {
@@ -355,6 +363,136 @@ export function PaperForm() {
     }
   }
 
+  // 上传开题报告
+  const uploadProposal = async (file) => {
+    try {
+      setUploadingProposal(true)
+      const formData = new FormData()
+      formData.append('file', file)
+      
+      const response = await fetch(`${API_BASE_URL}/api/proposal/upload`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      })
+      
+      const data = await response.json()
+      if (data.success) {
+        setProposalFile(data.data)
+        setProposalContent(data.data.content)
+        alert('开题报告上传成功！')
+        
+        // 自动提取信息填充表单
+        await extractProposalInfo(data.data.content)
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      console.error('上传开题报告失败:', error)
+      alert(`上传失败: ${error.message}`)
+    } finally {
+      setUploadingProposal(false)
+    }
+  }
+
+  // 分析开题报告
+  const analyzeProposal = async () => {
+    if (!proposalContent) {
+      alert('请先上传开题报告')
+      return
+    }
+    
+    try {
+      setAnalyzingProposal(true)
+      const response = await fetch(`${API_BASE_URL}/api/proposal/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ content: proposalContent })
+      })
+      
+      const data = await response.json()
+      if (data.success) {
+        setProposalAnalysis(data.data)
+        alert('开题报告分析完成！')
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      console.error('分析开题报告失败:', error)
+      alert(`分析失败: ${error.message}`)
+    } finally {
+      setAnalyzingProposal(false)
+    }
+  }
+
+  // 提取开题报告信息
+  const extractProposalInfo = async (content) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/proposal/extract-info`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ content: content })
+      })
+      
+      const data = await response.json()
+      if (data.success) {
+        const info = data.data
+        setFormData(prev => ({
+          ...prev,
+          title: info.title || prev.title,
+          field: info.field || prev.field,
+          education: info.education_level || prev.education,
+          wordCount: info.word_count || prev.wordCount,
+          keywords: info.keywords || prev.keywords,
+          description: info.description || prev.description
+        }))
+      }
+    } catch (error) {
+      console.error('提取信息失败:', error)
+    }
+  }
+
+  // 处理文件上传
+  const handleProposalFileChange = (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      uploadProposal(file)
+    }
+  }
+
+  // 解析文献格式
+  const parseReferences = async () => {
+    if (!formData.customReferences.trim()) {
+      alert('请先输入文献内容')
+      return
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/thesis/parse-references`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          references: formData.customReferences
+        })
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        // 更新文献内容
+        handleInputChange('customReferences', data.data.formatted_references)
+        alert('文献格式解析完成！')
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      console.error('解析文献失败:', error)
+      alert(`解析失败: ${error.message}`)
+    }
+  }
+
   // 预览论文
   const previewPaper = () => {
     if (!finalPaper || !finalPaper.content) {
@@ -399,6 +537,79 @@ export function PaperForm() {
         ref.id === refId ? { ...ref, selected: !ref.selected } : ref
       )
     )
+  }
+
+  // 从开题报告生成大纲
+  const generateOutlineFromProposal = async () => {
+    if (!proposalContent) {
+      alert('请先上传开题报告')
+      return
+    }
+    
+    try {
+      setGeneratingFromProposal(true)
+      
+      const response = await fetch(`${API_BASE_URL}/api/thesis/generate-outline-from-proposal`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          proposal_content: proposalContent,
+          title: formData.title,
+          field: formData.field,
+          education_level: formData.education
+        })
+      })
+      
+      const data = await response.json()
+      if (data.success && data.data) {
+        setOutlineData(data.data)
+        alert('基于开题报告的大纲生成完成！')
+      } else {
+        throw new Error(data.message || '生成失败')
+      }
+    } catch (error) {
+      console.error('生成大纲失败:', error)
+      alert(`生成失败: ${error.message}`)
+    } finally {
+      setGeneratingFromProposal(false)
+    }
+  }
+
+  // 解析用户自定义大纲
+  const parseCustomOutline = async () => {
+    if (!customOutline.trim()) {
+      alert('请先输入大纲内容')
+      return
+    }
+    
+    try {
+      setIsGenerating(true)
+      
+      const response = await fetch(`${API_BASE_URL}/api/thesis/parse-custom-outline`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          outline_text: customOutline,
+          title: formData.title,
+          field: formData.field
+        })
+      })
+      
+      const data = await response.json()
+      if (data.success && data.data) {
+        setOutlineData(data.data)
+        alert('自定义大纲解析完成！')
+      } else {
+        throw new Error(data.message || '解析失败')
+      }
+    } catch (error) {
+      console.error('解析大纲失败:', error)
+      alert(`解析失败: ${error.message}`)
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
   // 生成大纲
@@ -683,6 +894,111 @@ export function PaperForm() {
     <div>
       <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>论文基本信息</h2>
       
+      {/* 上传开题报告区域 */}
+      <div style={{ marginBottom: '32px', padding: '20px', border: '2px dashed #e5e7eb', borderRadius: '8px', backgroundColor: '#f9fafb' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '12px', color: '#374151' }}>
+          上传开题报告（可选）
+        </h3>
+        <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
+          上传开题报告后，系统将自动提取论文信息并生成智能大纲
+        </p>
+        
+        {!proposalFile ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <input
+              type="file"
+              accept=".txt,.doc,.docx,.pdf,.md"
+              onChange={handleProposalFileChange}
+              style={{ display: 'none' }}
+              id="proposal-upload"
+            />
+            <label
+              htmlFor="proposal-upload"
+              style={{
+                padding: '12px 20px',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '14px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              {uploadingProposal ? (
+                <>
+                  <RefreshCw size={16} className="animate-spin" />
+                  上传中...
+                </>
+              ) : (
+                <>
+                  <Upload size={16} />
+                  上传开题报告
+                </>
+              )}
+            </label>
+            <span style={{ fontSize: '12px', color: '#6b7280' }}>
+              支持 TXT, DOC, DOCX, PDF, MD 格式
+            </span>
+          </div>
+        ) : (
+          <div style={{ backgroundColor: 'white', padding: '16px', borderRadius: '6px', border: '1px solid #e5e7eb' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <CheckCircle size={16} style={{ color: '#10b981' }} />
+                <span style={{ fontSize: '14px', fontWeight: '500' }}>{proposalFile.original_name}</span>
+              </div>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={analyzeProposal}
+                  disabled={analyzingProposal}
+                  style={{
+                    padding: '6px 12px',
+                    backgroundColor: analyzingProposal ? '#9ca3af' : '#10b981',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    cursor: analyzingProposal ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {analyzingProposal ? '分析中...' : 'AI分析'}
+                </button>
+                <button
+                  onClick={() => { setProposalFile(null); setProposalContent(''); setProposalAnalysis(null) }}
+                  style={{
+                    padding: '6px 12px',
+                    backgroundColor: '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  重新上传
+                </button>
+              </div>
+            </div>
+            <div style={{ fontSize: '12px', color: '#6b7280' }}>
+              文件大小: {(proposalFile.file_size / 1024).toFixed(1)} KB | 上传时间: {new Date(proposalFile.upload_time).toLocaleString()}
+            </div>
+            {proposalAnalysis && (
+              <div style={{ marginTop: '12px', padding: '12px', backgroundColor: '#f0f9ff', borderRadius: '4px' }}>
+                <h4 style={{ fontSize: '13px', fontWeight: '500', marginBottom: '8px', color: '#1e40af' }}>🤖 AI分析结果</h4>
+                <div style={{ fontSize: '12px', color: '#1e40af' }}>
+                  {proposalAnalysis.suggestions && proposalAnalysis.suggestions.slice(0, 3).map((suggestion, index) => (
+                    <div key={index} style={{ marginBottom: '4px' }}>• {suggestion}</div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      
       {/* 论文标题 */}
       <div style={{ marginBottom: '20px' }}>
         <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
@@ -879,6 +1195,7 @@ export function PaperForm() {
             }}
           />
           <button
+            onClick={parseReferences}
             style={{
               padding: '12px 20px',
               backgroundColor: '#3b82f6',
@@ -888,10 +1205,14 @@ export function PaperForm() {
               fontSize: '14px',
               fontWeight: '500',
               cursor: 'pointer',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
             }}
           >
-            解析文献文献格式
+            <FileText size={14} />
+            解析文献格式
           </button>
         </div>
         <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '8px' }}>

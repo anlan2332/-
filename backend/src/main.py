@@ -46,6 +46,8 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 from src.routes.thesis import thesis_bp
 # 导入订单路由
 from src.routes.order import order_bp
+# 导入开题报告路由
+from src.routes.proposal import proposal_bp
 
 # 注册蓝图
 app.register_blueprint(user_bp, url_prefix='/api')
@@ -57,6 +59,7 @@ app.register_blueprint(user_center_bp, url_prefix='/api/user')
 app.register_blueprint(admin_bp, url_prefix='/api/admin')
 app.register_blueprint(thesis_bp, url_prefix='/api/thesis')
 app.register_blueprint(order_bp, url_prefix='/api/orders')
+app.register_blueprint(proposal_bp, url_prefix='/api/proposal')
 app.register_blueprint(admin_panel_bp, url_prefix='/admin')
 
 # 数据库配置

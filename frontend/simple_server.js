@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const port = 8080;
+const port = 3000;
 const distPath = path.join(__dirname, 'dist');
 
 // MIME类型映射
@@ -70,5 +70,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, '0.0.0.0', () => {
     console.log(`百考通AI写作平台前端服务运行在: http://0.0.0.0:${port}`);
-    console.log(`访问地址: https://8080-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev`);
+    console.log(`访问地址: https://3000-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev`);
 });
