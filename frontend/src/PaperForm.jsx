@@ -1,75 +1,60 @@
 import { useState, useEffect } from 'react'
-import { Search, Upload, Lightbulb, Clock, FileText, Download, ChevronRight, CheckCircle } from 'lucide-react'
+import { 
+  Search, Upload, Lightbulb, Clock, FileText, Download, ChevronRight, CheckCircle,
+  BarChart3, Image, Table, PieChart, Settings, RefreshCw, Check, X
+} from 'lucide-react'
 
 const API_BASE_URL = 'https://5001-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev'
 
 export function PaperForm() {
+  const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState({
+    // 基本信息
     title: '',
     field: '',
     education: '本科',
     wordCount: '8000',
+    language: 'zh',
+    format: 'standard',
     keywords: '',
-    description: ''
+    description: '',
+    // 参考文献
+    customReferences: '',
+    selectedReferences: [],
+    // 大纲
+    outline: null,
+    chartOptions: {}
   })
 
-  const [currentStep, setCurrentStep] = useState(1)
   const [isGenerating, setIsGenerating] = useState(false)
   const [generationProgress, setGenerationProgress] = useState(0)
-  const [currentPaper, setCurrentPaper] = useState(null)
-  const [paperContent, setPaperContent] = useState('')
-  const [socket, setSocket] = useState(null)
   const [wsConnected, setWsConnected] = useState(false)
-  const [references, setReferences] = useState([])
-  const [outline, setOutline] = useState(null)
+  const [recommendedReferences, setRecommendedReferences] = useState([])
+  const [outlineData, setOutlineData] = useState(null)
+  const [finalPaper, setFinalPaper] = useState(null)
 
-  // WebSocket连接 - 暂时禁用直到修复依赖问题
+  // 模拟WebSocket连接状态
   useEffect(() => {
-    // TODO: 修复socket.io-client导入问题后恢复WebSocket功能
-    console.log('WebSocket功能暂时禁用 - 等待修复socket.io-client依赖')
-    setWsConnected(false)
-    
-    // 模拟连接以进行基本测试
-    setTimeout(() => {
-      setWsConnected(true)
-      console.log('模拟WebSocket连接成功')
-    }, 1000)
-    
-    /*
-    const newSocket = io(API_BASE_URL)
-    
-    newSocket.on('connect', () => {
-      console.log('WebSocket连接成功')
-      setWsConnected(true)
-    })
-    
-    newSocket.on('disconnect', () => {
-      console.log('WebSocket连接断开')
-      setWsConnected(false)
-    })
-    
-    newSocket.on('paper_progress', (data) => {
-      console.log('收到论文生成进度:', data)
-      setGenerationProgress(data.progress)
-      if (data.progress === 100) {
-        setIsGenerating(false)
-        // 获取完成的论文内容
-        fetchPaperContent(data.paper_id)
-      }
-    })
-    
-    newSocket.on('error', (error) => {
-      console.error('WebSocket错误:', error)
-      alert('连接错误: ' + error.message)
-    })
-    
-    setSocket(newSocket)
-    
-    return () => {
-      newSocket.close()
-    }
-    */
+    setWsConnected(true)
   }, [])
+
+  // 教育层次选项
+  const educationOptions = [
+    { value: '专科', label: '专科' },
+    { value: '本科', label: '本科' },
+    { value: '硕士', label: '硕士' },
+    { value: '博士', label: '博士' }
+  ]
+
+  // 论文字数选项
+  const wordCountOptions = [
+    { value: '3000', label: '3000字' },
+    { value: '5000', label: '5000字' },
+    { value: '8000', label: '8000字' },
+    { value: '10000', label: '10000字' },
+    { value: '15000', label: '15000字' },
+    { value: '20000', label: '20000字' }
+  ]
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -78,588 +63,969 @@ export function PaperForm() {
     }))
   }
 
-  const fetchPaperContent = async (paperId) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/thesis/${paperId}`, {
-        method: 'GET',
-        credentials: 'include'
-      })
-      const data = await response.json()
-      if (data.success) {
-        setPaperContent(data.data.content)
-        setCurrentPaper(data.data)
-        setCurrentStep(4) // 跳转到下载步骤
-      }
-    } catch (error) {
-      console.error('获取论文内容失败:', error)
+  const handleNextStep = () => {
+    if (currentStep < 4) {
+      setCurrentStep(currentStep + 1)
     }
   }
 
-  const handleCreateThesis = async () => {
-    if (!formData.title.trim()) {
-      alert('请输入论文标题')
+  const handlePrevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  // 生成推荐文献
+  const generateRecommendedReferences = async () => {
+    if (!formData.title) {
+      alert('请先输入论文标题')
       return
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/thesis/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      setIsGenerating(true)
+      // 模拟推荐文献数据
+      const mockReferences = [
+        {
+          id: 1,
+          title: `提升职业本科院校教师教育力的途径探索(1)——以大学生学科竞赛力载体`,
+          authors: '黄敏, 章正伟, 吴敏华, 林长红',
+          journal: '现代职业教育',
+          year: '2025',
+          tags: ['职业本科', '教师教育力', '学科竞赛', '教育改革', '教学质量'],
+          selected: false
         },
-        credentials: 'include',
-        body: JSON.stringify({
-          title: formData.title,
-          field: formData.field,
-          education_level: formData.education,
-          keywords: formData.keywords,
-          description: formData.description,
-          word_count: parseInt(formData.wordCount)
-        })
-      })
-
-      const data = await response.json()
-      if (data.success) {
-        setCurrentPaper(data.data)
-        setCurrentStep(2) // 进入参考文献步骤
-        alert('论文创建成功！')
-      } else {
-        alert('创建论文失败: ' + data.message)
-      }
-    } catch (error) {
-      console.error('创建论文失败:', error)
-      alert('网络错误，请稍后重试')
-    }
-  }
-
-  const handleGenerateThesis = async () => {
-    if (!currentPaper) {
-      alert('请先创建论文')
-      return
-    }
-
-    setIsGenerating(true)
-    setGenerationProgress(0)
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/thesis/generate`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        {
+          id: 2,
+          title: '吴旭干："申江1号"能够提早上市！成蟹养殖成活率能达到60%～70%',
+          authors: '彭可欣',
+          journal: '当代水产',
+          year: '2025',
+          tags: [],
+          selected: false
         },
-        credentials: 'include',
-        body: JSON.stringify({
-          paper_id: currentPaper.paper_id
-        })
-      })
-
-      const data = await response.json()
-      if (data.success) {
-        // 生成开始，等待WebSocket进度通知
-        alert('开始生成论文，请稍候...')
-      } else {
-        alert('生成论文失败: ' + data.message)
-        setIsGenerating(false)
-      }
+        {
+          id: 3,
+          title: 'ERAS联合"互联网+延续性护理"在1例双侧全髋关节置换术患者中的应用效果',
+          authors: '廖秋侠, 周美含, 莫伟, 古云师, 刘方印',
+          journal: '临床医学研究与实践',
+          year: '2025',
+          tags: ['加速康复外科', '"互联网+延续性护理"', '联合书法现代护理', '全髋关节置换术', 'Tanner分期'],
+          selected: false
+        },
+        {
+          id: 4,
+          title: '特发性中枢性早熟女童IGF-1、IGFBP-3与Tanner分期的关系',
+          authors: '罗婷婷, 李茜, 陈婷, 何珊',
+          journal: '中国医学创新',
+          year: '2025',
+          tags: ['社会工作者评价体系', '顾客导向解决方案心理', '获动评估实证法了', 'Tanner分期'],
+          selected: false
+        }
+      ]
+      
+      setRecommendedReferences(mockReferences)
+      setIsGenerating(false)
     } catch (error) {
-      console.error('生成论文失败:', error)
-      alert('网络错误，请稍后重试')
+      console.error('获取推荐文献失败:', error)
       setIsGenerating(false)
     }
   }
 
-  const addReference = () => {
-    const newRef = {
-      id: Date.now(),
-      title: '',
-      author: '',
-      year: '',
-      journal: '',
-      type: 'journal'
+  // 选择/取消推荐文献
+  const toggleReference = (refId) => {
+    setRecommendedReferences(prev => 
+      prev.map(ref => 
+        ref.id === refId ? { ...ref, selected: !ref.selected } : ref
+      )
+    )
+  }
+
+  // 生成大纲
+  const generateOutline = async () => {
+    try {
+      setIsGenerating(true)
+      // 模拟大纲数据
+      const mockOutline = {
+        structured: [
+          { 
+            id: 1, 
+            title: '1. 绪论', 
+            children: [
+              { id: 11, title: '1.1 研究背景', hasChart: false, chartType: null },
+              { id: 12, title: '1.2 研究意义', hasChart: false, chartType: null },
+              { id: 13, title: '1.3 研究内容', hasChart: false, chartType: null }
+            ]
+          },
+          { 
+            id: 2, 
+            title: '2. 相关理论基础', 
+            children: [
+              { id: 21, title: '2.1 理论概述', hasChart: false, chartType: null },
+              { id: 22, title: '2.2 技术发展现状', hasChart: true, chartType: 'table' }
+            ]
+          },
+          { 
+            id: 3, 
+            title: '3. 研究方法与设计', 
+            children: [
+              { id: 31, title: '3.1 研究方法', hasChart: false, chartType: null },
+              { id: 32, title: '3.2 实验设计', hasChart: true, chartType: 'chart' },
+              { id: 33, title: '3.3 数据采集', hasChart: false, chartType: null }
+            ]
+          },
+          { 
+            id: 4, 
+            title: '4. 结果分析', 
+            children: [
+              { id: 41, title: '4.1 数据分析结果', hasChart: true, chartType: 'chart' },
+              { id: 42, title: '4.2 结果讨论', hasChart: false, chartType: null }
+            ]
+          },
+          { 
+            id: 5, 
+            title: '5. 结论与展望', 
+            children: [
+              { id: 51, title: '5.1 研究结论', hasChart: false, chartType: null },
+              { id: 52, title: '5.2 研究展望', hasChart: false, chartType: null }
+            ]
+          }
+        ],
+        systemRecommended: `
+        一、绪论
+        1.1 研究背景与意义
+        1.2 国内外研究现状
+        1.3 研究目标与内容
+        1.4 研究方法与技术路线
+        
+        二、相关理论与技术基础
+        2.1 基础理论概述
+        2.2 关键技术分析
+        2.3 发展趋势研究
+        
+        三、系统设计与实现
+        3.1 需求分析
+        3.2 系统架构设计
+        3.3 核心算法设计
+        3.4 系统实现
+        
+        四、实验结果与分析
+        4.1 实验环境与数据
+        4.2 实验结果分析
+        4.3 性能评估
+        
+        五、总结与展望
+        5.1 研究总结
+        5.2 存在的不足
+        5.3 未来工作展望
+        `
+      }
+      
+      setOutlineData(mockOutline)
+      setIsGenerating(false)
+    } catch (error) {
+      console.error('生成大纲失败:', error)
+      setIsGenerating(false)
     }
-    setReferences([...references, newRef])
   }
 
-  const updateReference = (id, field, value) => {
-    setReferences(refs => refs.map(ref => 
-      ref.id === id ? { ...ref, [field]: value } : ref
-    ))
+  // 切换章节图表选项
+  const toggleChartOption = (sectionId, chartType) => {
+    setOutlineData(prev => {
+      if (!prev) return prev
+      
+      const newStructured = prev.structured.map(section => ({
+        ...section,
+        children: section.children.map(child => {
+          if (child.id === sectionId) {
+            return {
+              ...child,
+              hasChart: chartType ? true : false,
+              chartType: chartType
+            }
+          }
+          return child
+        })
+      }))
+      
+      return {
+        ...prev,
+        structured: newStructured
+      }
+    })
   }
 
-  const removeReference = (id) => {
-    setReferences(refs => refs.filter(ref => ref.id !== id))
-  }
-
-  const generateOutline = () => {
-    if (!currentPaper) {
-      alert('请先创建论文')
-      return
+  // 生成最终论文
+  const generateFinalPaper = async () => {
+    try {
+      setIsGenerating(true)
+      setGenerationProgress(0)
+      
+      // 模拟生成过程
+      const intervals = [10, 30, 50, 70, 90, 100]
+      for (let i = 0; i < intervals.length; i++) {
+        setTimeout(() => {
+          setGenerationProgress(intervals[i])
+          if (intervals[i] === 100) {
+            setFinalPaper({
+              title: formData.title,
+              content: `这是根据您的要求生成的论文内容...\n\n${formData.title}\n\n摘要：本研究针对...`,
+              wordCount: formData.wordCount,
+              createdAt: new Date().toLocaleString()
+            })
+            setIsGenerating(false)
+          }
+        }, i * 1000)
+      }
+    } catch (error) {
+      console.error('生成论文失败:', error)
+      setIsGenerating(false)
     }
-    
-    // 模拟生成大纲
-    const mockOutline = {
-      title: formData.title,
-      sections: [
-        { title: '摘要', pages: 1 },
-        { title: '绪论', pages: 2 },
-        { title: '相关技术与理论基础', pages: 3 },
-        { title: '系统设计与实现', pages: 4 },
-        { title: '实验结果与分析', pages: 3 },
-        { title: '结论与展望', pages: 1 }
-      ],
-      totalPages: 14
-    }
-    setOutline(mockOutline)
-    setCurrentStep(3)
   }
 
-  const downloadPaper = () => {
-    if (!paperContent) {
-      alert('暂无可下载内容')
-      return
-    }
-    
-    const blob = new Blob([paperContent], { type: 'text/plain;charset=utf-8' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${formData.title}.txt`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+  // 步骤指示器
+  const StepIndicator = () => (
+    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '32px' }}>
+      {[1, 2, 3, 4].map((step, index) => (
+        <div key={step} style={{ display: 'flex', alignItems: 'center' }}>
+          <div 
+            style={{ 
+              width: '32px', 
+              height: '32px', 
+              borderRadius: '50%', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              backgroundColor: step <= currentStep ? '#3b82f6' : '#e5e7eb',
+              color: step <= currentStep ? 'white' : '#6b7280',
+              fontWeight: '500'
+            }}
+          >
+            {step < currentStep ? <Check size={16} /> : step}
+          </div>
+          {index < 3 && (
+            <div 
+              style={{ 
+                width: '60px', 
+                height: '2px', 
+                backgroundColor: step < currentStep ? '#3b82f6' : '#e5e7eb',
+                margin: '0 16px'
+              }} 
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  )
 
-  const steps = [
-    { id: 1, title: '论文标题', desc: '设置论文标题与主题', icon: '1' },
-    { id: 2, title: '参考文献', desc: '添加并管理参考文献', icon: '2' },
-    { id: 3, title: '大纲', desc: '组织论文结构与章节', icon: '3' },
-    { id: 4, title: '下载', desc: '导出完整的论文', icon: '4' }
-  ]
-
-  const quickFillButtons = [
-    { label: '人工智能', value: '人工智能在智慧城市建设中的应用研究', field: '计算机科学' },
-    { label: '大数据', value: '大数据技术在企业决策中的应用与分析', field: '计算机科学' },
-    { label: '云计算', value: '云计算环境下的数据安全保护机制研究', field: '计算机科学' },
-    { label: '物联网', value: '物联网技术在智能家居系统中的设计与实现', field: '计算机科学' }
-  ]
-
-  const renderStep1 = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* 论文标题输入 */}
-      <div>
-        <label className="form-label">论文标题 *</label>
+  // 基本信息表单
+  const BasicInfoForm = () => (
+    <div>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>论文基本信息</h2>
+      
+      {/* 论文标题 */}
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+          <span style={{ color: '#dc2626' }}>*</span> 论文标题：
+        </label>
         <input
           type="text"
-          className="input"
-          placeholder="请输入完整的论文标题"
           value={formData.title}
           onChange={(e) => handleInputChange('title', e.target.value)}
-        />
-        
-        {/* 快捷填充按钮 */}
-        <div style={{ marginTop: '12px' }}>
-          <p style={{ fontSize: '12px', color: '#6b7280', marginBottom: '8px' }}>快捷填充:</p>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            {quickFillButtons.map((btn, index) => (
-              <button
-                key={index}
-                className="button"
-                style={{ 
-                  fontSize: '12px', 
-                  padding: '4px 8px',
-                  backgroundColor: '#f3f4f6',
-                  color: '#374151',
-                  border: '1px solid #d1d5db'
-                }}
-                onClick={() => {
-                  handleInputChange('title', btn.value)
-                  handleInputChange('field', btn.field)
-                }}
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 研究领域 */}
-      <div>
-        <label className="form-label">研究领域</label>
-        <input
-          type="text"
-          className="input"
-          placeholder="如：计算机科学、机械工程、管理学等"
-          value={formData.field}
-          onChange={(e) => handleInputChange('field', e.target.value)}
+          placeholder="请输入论文标题"
+          style={{
+            width: '100%',
+            padding: '12px 16px',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            fontSize: '14px'
+          }}
         />
       </div>
 
-      {/* 基本设置 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+        {/* 学历 */}
         <div>
-          <label className="form-label">学历层次</label>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+            <span style={{ color: '#dc2626' }}>*</span> 学历：
+          </label>
           <select
-            className="select"
             value={formData.education}
             onChange={(e) => handleInputChange('education', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              backgroundColor: 'white'
+            }}
           >
-            <option value="专科">专科</option>
-            <option value="本科">本科</option>
-            <option value="硕士">硕士</option>
-            <option value="博士">博士</option>
+            {educationOptions.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
           </select>
         </div>
 
+        {/* 论文字数 */}
         <div>
-          <label className="form-label">目标字数</label>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+            <span style={{ color: '#dc2626' }}>*</span> 论文字数：
+          </label>
           <select
-            className="select"
             value={formData.wordCount}
             onChange={(e) => handleInputChange('wordCount', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '12px 16px',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              backgroundColor: 'white'
+            }}
           >
-            <option value="5000">5000字</option>
-            <option value="8000">8000字</option>
-            <option value="10000">10000字</option>
-            <option value="15000">15000字</option>
-            <option value="20000">20000字</option>
+            {wordCountOptions.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
           </select>
         </div>
       </div>
 
-      {/* 关键词 */}
-      <div>
-        <label className="form-label">关键词</label>
-        <input
-          type="text"
-          className="input"
-          placeholder="用分号分隔，如：人工智能;机器学习;深度学习"
-          value={formData.keywords}
-          onChange={(e) => handleInputChange('keywords', e.target.value)}
-        />
+      {/* 语言选择 */}
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '12px' }}>
+          语言：
+        </label>
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <input
+              type="radio"
+              name="language"
+              value="zh"
+              checked={formData.language === 'zh'}
+              onChange={(e) => handleInputChange('language', e.target.value)}
+            />
+            中文
+          </label>
+        </div>
+      </div>
+
+      {/* 图表公式选择 */}
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '12px' }}>
+          图表公式：
+        </label>
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <input
+              type="radio"
+              name="format"
+              value="standard"
+              checked={formData.format === 'standard'}
+              onChange={(e) => handleInputChange('format', e.target.value)}
+            />
+            图表/公式/代码
+          </label>
+        </div>
       </div>
 
       {/* 补充说明 */}
-      <div>
-        <label className="form-label">补充说明</label>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+          补充说明：
+        </label>
         <textarea
-          className="textarea"
-          placeholder="请详细描述您的研究思路、方法、内容要求、参考的数据/案例/资料等..."
           value={formData.description}
           onChange={(e) => handleInputChange('description', e.target.value)}
+          placeholder="补充说明..."
           rows={4}
+          style={{
+            width: '100%',
+            padding: '12px 16px',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            fontSize: '14px',
+            resize: 'vertical'
+          }}
         />
+        <div style={{ textAlign: 'right', fontSize: '12px', color: '#6b7280', marginTop: '4px' }}>
+          {formData.description.length}/1500
+        </div>
       </div>
 
-      {/* 操作按钮 */}
-      <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-        <button 
-          className="button"
-          onClick={handleCreateThesis}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <button
+          onClick={() => alert('开题报告功能开发中')}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer'
+          }}
         >
-          <ChevronRight size={16} />
-          下一步：添加参考文献
+          上传开题报告
+        </button>
+        
+        <button
+          onClick={handleNextStep}
+          disabled={!formData.title}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: formData.title ? '#3b82f6' : '#9ca3af',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: formData.title ? 'pointer' : 'not-allowed',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          智能选题 <ChevronRight size={16} />
         </button>
       </div>
     </div>
   )
 
-  const renderStep2 = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: '600' }}>参考文献管理</h3>
-        <button 
-          className="button"
-          onClick={addReference}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          添加文献
-        </button>
+  // 参考文献界面
+  const ReferencesForm = () => (
+    <div>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>参考文献</h2>
+      
+      {/* 自定义文献输入 */}
+      <div style={{ marginBottom: '32px' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '12px' }}>
+          输入自定义参考文献，选择推荐文献重新（引文格式）
+        </h3>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+          <textarea
+            value={formData.customReferences}
+            onChange={(e) => handleInputChange('customReferences', e.target.value)}
+            placeholder="自定义输入文献（本科参考文献15个以上，硕士20个以上，博士30个以上）"
+            rows={6}
+            style={{
+              flex: 1,
+              padding: '12px 16px',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              resize: 'vertical'
+            }}
+          />
+          <button
+            style={{
+              padding: '12px 20px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            解析文献文献格式
+          </button>
+        </div>
+        <div style={{ color: '#dc2626', fontSize: '12px', marginTop: '8px' }}>
+          ⚠️ 注意中英文标点，需确保引用文献
+        </div>
       </div>
 
-      {references.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '40px', color: '#6b7280' }}>
-          <FileText size={48} style={{ marginBottom: '16px', margin: '0 auto' }} />
-          <p>暂无参考文献，点击"添加文献"开始添加</p>
+      {/* 推荐文献 */}
+      <div style={{ marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+          <h3 style={{ fontSize: '16px', fontWeight: '500' }}>推荐文献</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: '#6b7280' }}>
+            <Settings size={14} />
+            本科参考文献15个以上，硕士20个以上，博士30个以上
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={generateRecommendedReferences}
+              disabled={isGenerating}
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#dc2626',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '12px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              追加文献 {isGenerating && <RefreshCw size={12} className="animate-spin" />}
+            </button>
+            <button
+              style={{
+                padding: '8px 16px',
+                backgroundColor: '#f59e0b',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              搜索文献
+            </button>
+          </div>
         </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {references.map((ref, index) => (
-            <div key={ref.id} className="card" style={{ padding: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', marginBottom: '12px' }}>
-                <span style={{ fontWeight: '500' }}>文献 {index + 1}</span>
-                <button 
-                  onClick={() => removeReference(ref.id)}
-                  style={{ color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer' }}
-                >
-                  删除
-                </button>
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '12px', marginBottom: '12px' }}>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="文献标题"
-                  value={ref.title}
-                  onChange={(e) => updateReference(ref.id, 'title', e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="作者"
-                  value={ref.author}
-                  onChange={(e) => updateReference(ref.id, 'author', e.target.value)}
-                />
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="发表年份"
-                  value={ref.year}
-                  onChange={(e) => updateReference(ref.id, 'year', e.target.value)}
-                />
-                <input
-                  type="text"
-                  className="input"
-                  placeholder="期刊/会议名称"
-                  value={ref.journal}
-                  onChange={(e) => updateReference(ref.id, 'journal', e.target.value)}
-                />
-                <select
-                  className="select"
-                  value={ref.type}
-                  onChange={(e) => updateReference(ref.id, 'type', e.target.value)}
-                >
-                  <option value="journal">期刊论文</option>
-                  <option value="conference">会议论文</option>
-                  <option value="book">图书</option>
-                  <option value="thesis">学位论文</option>
-                </select>
+
+        {/* 推荐文献列表 */}
+        <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px' }}>
+          {recommendedReferences.map((ref, index) => (
+            <div 
+              key={ref.id}
+              style={{ 
+                padding: '16px',
+                borderBottom: index < recommendedReferences.length - 1 ? '1px solid #e5e7eb' : 'none',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '12px'
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={ref.selected}
+                onChange={() => toggleReference(ref.id)}
+                style={{ marginTop: '4px' }}
+              />
+              <div style={{ flex: 1 }}>
+                <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#1f2937' }}>
+                  {ref.title}
+                </h4>
+                <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '8px' }}>
+                  {ref.authors} | {ref.journal} | {ref.year}
+                </p>
+                {ref.tags.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {ref.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tagIndex}
+                        style={{
+                          padding: '2px 8px',
+                          backgroundColor: '#dbeafe',
+                          color: '#1d4ed8',
+                          fontSize: '11px',
+                          borderRadius: '4px'
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
-        </div>
-      )}
-
-      <div style={{ display: 'flex', gap: '12px', justifyContent: 'space-between' }}>
-        <button 
-          className="button"
-          onClick={() => setCurrentStep(1)}
-          style={{ backgroundColor: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db' }}
-        >
-          上一步
-        </button>
-        <button 
-          className="button"
-          onClick={generateOutline}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          <ChevronRight size={16} />
-          下一步：生成大纲
-        </button>
-      </div>
-    </div>
-  )
-
-  const renderStep3 = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <h3 style={{ fontSize: '18px', fontWeight: '600' }}>论文大纲</h3>
-      
-      {outline ? (
-        <div className="card" style={{ padding: '20px' }}>
-          <h4 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '16px' }}>{outline.title}</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {outline.sections.map((section, index) => (
-              <div key={index} style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                padding: '8px 12px',
-                backgroundColor: '#f9fafb',
-                borderRadius: '6px'
-              }}>
-                <span style={{ fontWeight: '500' }}>{section.title}</span>
-                <span style={{ color: '#6b7280', fontSize: '14px' }}>约 {section.pages} 页</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: '16px', padding: '12px', backgroundColor: '#dbeafe', borderRadius: '6px' }}>
-            <p style={{ fontSize: '14px', color: '#1d4ed8' }}>
-              预计总页数: {outline.totalPages} 页 | 建议字数: {formData.wordCount} 字
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div style={{ textAlign: 'center', padding: '40px', color: '#6b7280' }}>
-          <FileText size={48} style={{ marginBottom: '16px', margin: '0 auto' }} />
-          <p>大纲生成中...</p>
-        </div>
-      )}
-
-      <div style={{ display: 'flex', gap: '12px', justifyContent: 'space-between' }}>
-        <button 
-          className="button"
-          onClick={() => setCurrentStep(2)}
-          style={{ backgroundColor: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db' }}
-        >
-          上一步
-        </button>
-        <button 
-          className="button"
-          onClick={handleGenerateThesis}
-          disabled={isGenerating}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
-          {isGenerating ? (
-            <>
-              <div className="loading" />
-              生成中... {generationProgress}%
-            </>
-          ) : (
-            <>
-              <ChevronRight size={16} />
-              开始生成论文
-            </>
-          )}
-        </button>
-      </div>
-
-      {isGenerating && (
-        <div style={{ padding: '16px', backgroundColor: '#f0f9ff', borderRadius: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
-            <div className="loading" />
-            <span style={{ color: '#0369a1' }}>正在生成论文内容...</span>
-          </div>
-          <div style={{ width: '100%', height: '8px', backgroundColor: '#e0e7ff', borderRadius: '4px' }}>
-            <div 
-              style={{ 
-                width: `${generationProgress}%`, 
-                height: '100%', 
-                backgroundColor: '#3b82f6', 
-                borderRadius: '4px',
-                transition: 'width 0.3s ease'
-              }}
-            />
-          </div>
-          <p style={{ fontSize: '12px', color: '#0369a1', marginTop: '4px' }}>
-            进度: {generationProgress}%
-          </p>
-        </div>
-      )}
-    </div>
-  )
-
-  const renderStep4 = () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <h3 style={{ fontSize: '18px', fontWeight: '600' }}>论文下载</h3>
-      
-      {paperContent ? (
-        <div>
-          <div className="card" style={{ padding: '20px', marginBottom: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <CheckCircle size={24} style={{ color: '#10b981' }} />
-              <div>
-                <h4 style={{ fontSize: '16px', fontWeight: '500', color: '#10b981' }}>论文生成完成！</h4>
-                <p style={{ color: '#6b7280', fontSize: '14px' }}>
-                  字数: {paperContent.length} | 标题: {formData.title}
-                </p>
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', gap: '12px' }}>
-              <button 
-                className="button"
-                onClick={downloadPaper}
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
-                <Download size={16} />
-                下载TXT格式
-              </button>
-              <button 
-                className="button"
-                style={{ 
-                  backgroundColor: '#f3f4f6', 
-                  color: '#374151', 
-                  border: '1px solid #d1d5db',
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '8px' 
-                }}
-              >
-                <Download size={16} />
-                下载DOCX格式
-              </button>
-            </div>
-          </div>
           
-          <div className="card" style={{ padding: '20px' }}>
-            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '12px' }}>论文预览</h4>
-            <div style={{ 
-              maxHeight: '300px', 
-              overflow: 'auto',
-              backgroundColor: '#f9fafb',
-              padding: '12px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              lineHeight: '1.6',
-              whiteSpace: 'pre-wrap'
-            }}>
-              {paperContent.substring(0, 1000)}
-              {paperContent.length > 1000 && '...\n\n[内容较长，请下载查看完整版本]'}
+          {recommendedReferences.length === 0 && (
+            <div style={{ padding: '48px', textAlign: 'center', color: '#6b7280' }}>
+              <Search size={32} style={{ margin: '0 auto 12px', opacity: 0.5 }} />
+              <p>点击"追加文献"获取推荐文献</p>
             </div>
-          </div>
+          )}
         </div>
-      ) : (
-        <div style={{ textAlign: 'center', padding: '40px', color: '#6b7280' }}>
-          <Download size={48} style={{ marginBottom: '16px', margin: '0 auto' }} />
-          <p>论文内容准备中...</p>
-        </div>
-      )}
+      </div>
 
-      <div style={{ display: 'flex', gap: '12px', justifyContent: 'space-between' }}>
-        <button 
-          className="button"
-          onClick={() => setCurrentStep(3)}
-          style={{ backgroundColor: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db' }}
-        >
-          返回大纲
-        </button>
-        <button 
-          className="button"
-          onClick={() => {
-            setCurrentStep(1)
-            setCurrentPaper(null)
-            setPaperContent('')
-            setFormData({
-              title: '',
-              field: '',
-              education: '本科',
-              wordCount: '8000',
-              keywords: '',
-              description: ''
-            })
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <button
+          onClick={handlePrevStep}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: 'white',
+            color: '#374151',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer'
           }}
         >
-          创建新论文
+          上一步
+        </button>
+        <button
+          onClick={handleNextStep}
+          style={{
+            padding: '12px 24px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          下一步 <ChevronRight size={16} />
         </button>
       </div>
     </div>
   )
 
+  // 智能大纲界面
+  const OutlineForm = () => (
+    <div>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>智能大纲</h2>
+      
+      {!outlineData ? (
+        <div style={{ textAlign: 'center', padding: '48px 0' }}>
+          <Lightbulb size={48} style={{ margin: '0 auto 16px', color: '#f59e0b' }} />
+          <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '24px' }}>
+            点击生成大纲开始创建论文结构
+          </p>
+          <button
+            onClick={generateOutline}
+            disabled={isGenerating}
+            style={{
+              padding: '12px 32px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              margin: '0 auto'
+            }}
+          >
+            {isGenerating ? (
+              <>
+                <RefreshCw size={16} className="animate-spin" />
+                生成中...
+              </>
+            ) : (
+              '生成大纲'
+            )}
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+          {/* 结构提纲 */}
+          <div>
+            <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <FileText size={16} />
+              结构提纲
+            </h3>
+            <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px', backgroundColor: '#f9fafb' }}>
+              {outlineData.structured.map((section) => (
+                <div key={section.id} style={{ marginBottom: '16px' }}>
+                  <h4 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', color: '#1f2937' }}>
+                    {section.title}
+                  </h4>
+                  {section.children.map((child) => (
+                    <div key={child.id} style={{ marginLeft: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: '13px', color: '#6b7280' }}>{child.title}</span>
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        <button
+                          onClick={() => toggleChartOption(child.id, child.chartType === 'table' ? null : 'table')}
+                          style={{
+                            padding: '4px 8px',
+                            backgroundColor: child.chartType === 'table' ? '#3b82f6' : '#e5e7eb',
+                            color: child.chartType === 'table' ? 'white' : '#6b7280',
+                            border: 'none',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2px'
+                          }}
+                        >
+                          <Table size={10} />
+                          表格
+                        </button>
+                        <button
+                          onClick={() => toggleChartOption(child.id, child.chartType === 'chart' ? null : 'chart')}
+                          style={{
+                            padding: '4px 8px',
+                            backgroundColor: child.chartType === 'chart' ? '#3b82f6' : '#e5e7eb',
+                            color: child.chartType === 'chart' ? 'white' : '#6b7280',
+                            border: 'none',
+                            borderRadius: '4px',
+                            fontSize: '10px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2px'
+                          }}
+                        >
+                          <BarChart3 size={10} />
+                          图表
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 系统推荐提纲 */}
+          <div>
+            <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Settings size={16} />
+              系统推荐提纲
+            </h3>
+            <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px', backgroundColor: '#f9fafb' }}>
+              <pre style={{ 
+                fontSize: '13px', 
+                lineHeight: '1.5', 
+                color: '#374151',
+                whiteSpace: 'pre-wrap',
+                margin: 0,
+                fontFamily: 'ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, consolas, monospace'
+              }}>
+                {outlineData.systemRecommended}
+              </pre>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {outlineData && (
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '32px' }}>
+          <button
+            onClick={handlePrevStep}
+            style={{
+              padding: '12px 24px',
+              backgroundColor: 'white',
+              color: '#374151',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer'
+            }}
+          >
+            上一步
+          </button>
+          <button
+            onClick={handleNextStep}
+            style={{
+              padding: '12px 24px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            生成论文 <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
+    </div>
+  )
+
+  // 生成下载界面
+  const GenerateForm = () => (
+    <div>
+      <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px' }}>生成论文</h2>
+      
+      {!finalPaper ? (
+        <div>
+          {isGenerating ? (
+            <div style={{ textAlign: 'center', padding: '48px 0' }}>
+              <div style={{ 
+                width: '80px', 
+                height: '80px', 
+                border: '4px solid #e5e7eb', 
+                borderTop: '4px solid #3b82f6',
+                borderRadius: '50%',
+                margin: '0 auto 24px',
+                animation: 'spin 1s linear infinite'
+              }} />
+              <p style={{ fontSize: '18px', fontWeight: '500', marginBottom: '8px' }}>正在生成论文...</p>
+              <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px' }}>
+                请耐心等待，预计需要2-3分钟
+              </p>
+              <div style={{ width: '300px', height: '8px', backgroundColor: '#e5e7eb', borderRadius: '4px', margin: '0 auto', overflow: 'hidden' }}>
+                <div 
+                  style={{ 
+                    width: `${generationProgress}%`, 
+                    height: '100%', 
+                    backgroundColor: '#3b82f6',
+                    transition: 'width 0.3s ease'
+                  }} 
+                />
+              </div>
+              <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '8px' }}>
+                进度: {generationProgress}%
+              </p>
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '48px 0' }}>
+              <FileText size={48} style={{ margin: '0 auto 16px', color: '#3b82f6' }} />
+              <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '24px' }}>
+                准备生成完整论文
+              </p>
+              <div style={{ backgroundColor: '#f3f4f6', padding: '20px', borderRadius: '8px', marginBottom: '24px', textAlign: 'left' }}>
+                <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '12px' }}>论文信息摘要：</h4>
+                <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '4px' }}>标题：{formData.title}</p>
+                <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '4px' }}>学历：{formData.education}</p>
+                <p style={{ fontSize: '13px', color: '#6b7280', marginBottom: '4px' }}>字数：{formData.wordCount}字</p>
+                <p style={{ fontSize: '13px', color: '#6b7280' }}>已选择推荐文献：{recommendedReferences.filter(r => r.selected).length}篇</p>
+              </div>
+              <button
+                onClick={generateFinalPaper}
+                style={{
+                  padding: '16px 32px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  margin: '0 auto'
+                }}
+              >
+                开始生成论文
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>
+          <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '16px', marginBottom: '24px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+              <CheckCircle size={20} style={{ color: '#16a34a' }} />
+              <h3 style={{ fontSize: '16px', fontWeight: '600', color: '#16a34a' }}>论文生成完成！</h3>
+            </div>
+            <p style={{ fontSize: '14px', color: '#15803d' }}>
+              论文已成功生成，您可以预览内容或直接下载。
+            </p>
+          </div>
+
+          <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '20px', marginBottom: '24px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '12px' }}>{finalPaper.title}</h4>
+            <div style={{ fontSize: '13px', color: '#6b7280', marginBottom: '16px' }}>
+              字数：{finalPaper.wordCount}字 | 生成时间：{finalPaper.createdAt}
+            </div>
+            <div style={{ 
+              maxHeight: '300px', 
+              overflow: 'auto', 
+              backgroundColor: '#f9fafb', 
+              padding: '16px', 
+              borderRadius: '6px',
+              fontSize: '14px',
+              lineHeight: '1.6'
+            }}>
+              {finalPaper.content}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+            <button
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <Download size={16} />
+              下载论文(Word)
+            </button>
+            <button
+              style={{
+                padding: '12px 24px',
+                backgroundColor: 'white',
+                color: '#374151',
+                border: '1px solid #d1d5db',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer'
+              }}
+            >
+              重新生成
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!isGenerating && !finalPaper && (
+        <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '32px' }}>
+          <button
+            onClick={handlePrevStep}
+            style={{
+              padding: '12px 24px',
+              backgroundColor: 'white',
+              color: '#374151',
+              border: '1px solid #d1d5db',
+              borderRadius: '8px',
+              fontSize: '14px',
+              fontWeight: '500',
+              cursor: 'pointer'
+            }}
+          >
+            上一步
+          </button>
+        </div>
+      )}
+    </div>
+  )
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <BasicInfoForm />
+      case 2:
+        return <ReferencesForm />
+      case 3:
+        return <OutlineForm />
+      case 4:
+        return <GenerateForm />
+      default:
+        return <BasicInfoForm />
+    }
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div>
       {/* WebSocket连接状态 */}
       <div style={{ 
         display: 'flex', 
         alignItems: 'center', 
-        gap: '8px',
+        gap: '8px', 
+        marginBottom: '20px',
         padding: '8px 12px',
-        backgroundColor: wsConnected ? '#ecfdf5' : '#fef2f2',
+        backgroundColor: wsConnected ? '#f0fdf4' : '#fef2f2',
+        border: `1px solid ${wsConnected ? '#bbf7d0' : '#fecaca'}`,
         borderRadius: '6px',
         fontSize: '12px'
       }}>
@@ -667,56 +1033,16 @@ export function PaperForm() {
           width: '8px', 
           height: '8px', 
           borderRadius: '50%', 
-          backgroundColor: wsConnected ? '#10b981' : '#ef4444' 
+          backgroundColor: wsConnected ? '#16a34a' : '#dc2626' 
         }} />
         WebSocket {wsConnected ? '已连接' : '未连接'}
       </div>
 
-      {/* 步骤指示器 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
-        {steps.map((step, index) => (
-          <div key={step.id} style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              backgroundColor: currentStep >= step.id ? '#3b82f6' : '#e5e7eb',
-              color: currentStep >= step.id ? 'white' : '#6b7280',
-              fontWeight: '600',
-              fontSize: '16px'
-            }}>
-              {step.icon}
-            </div>
-            <div style={{ marginLeft: '12px', flex: 1 }}>
-              <div style={{ 
-                fontSize: '14px', 
-                fontWeight: '500',
-                color: currentStep >= step.id ? '#1f2937' : '#6b7280'
-              }}>
-                {step.title}
-              </div>
-              <div style={{ 
-                fontSize: '12px', 
-                color: '#9ca3af' 
-              }}>
-                {step.desc}
-              </div>
-            </div>
-            {index < steps.length - 1 && (
-              <ChevronRight size={16} style={{ color: '#d1d5db', marginLeft: '8px' }} />
-            )}
-          </div>
-        ))}
+      <StepIndicator />
+      
+      <div className="card" style={{ padding: '32px' }}>
+        {renderCurrentStep()}
       </div>
-
-      {/* 步骤内容 */}
-      {currentStep === 1 && renderStep1()}
-      {currentStep === 2 && renderStep2()}
-      {currentStep === 3 && renderStep3()}
-      {currentStep === 4 && renderStep4()}
     </div>
   )
 }

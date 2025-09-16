@@ -16,9 +16,9 @@ import {
   Bot
 } from 'lucide-react'
 import { PaperForm } from './PaperForm.jsx'
+import { PaperForm } from './PaperForm.jsx'
 import { ChatWindow } from './ChatWindow.jsx'
 import { UserCenter } from './UserCenter.jsx'
-import { TestComponent } from './TestComponent.jsx'
 
 function App() {
   const [selectedMenuItem, setSelectedMenuItem] = useState('毕业论文')
@@ -125,7 +125,7 @@ function App() {
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px' }}>
             {/* 左侧表单区域 */}
             <div>
-              {selectedMenuItem === '毕业论文' && <TestComponent />}
+              {selectedMenuItem === '毕业论文' && <PaperForm />}
               {selectedMenuItem === '用户中心' && <UserCenter />}
               {selectedMenuItem === '订单查询' && (
                 <div style={{ textAlign: 'center', padding: '48px 0' }}>
