@@ -474,3 +474,57 @@ def get_thesis_progress(paper_id):
         
     except Exception as e:
         return jsonify({'success': False, 'message': f'获取进度失败: {str(e)}'}), 500
+
+@thesis_bp.route('/test-doubao', methods=['POST'])
+def test_doubao_api():
+    """测试豆包API连接和生成功能"""
+    try:
+        data = request.get_json()
+        title = data.get('title', '测试论文标题')
+        field = data.get('field', '计算机科学')
+        education_level = data.get('education_level', '本科')
+        keywords = data.get('keywords', '测试关键词')
+        
+        # 获取豆包客户端
+        client = get_doubao_api_client()
+        if not client:
+            return jsonify({'success': False, 'message': '豆包API客户端获取失败'}), 500
+        
+        # 测试生成论文大纲
+        outline_response = client.generate_outline(
+            title=title,
+            field=field, 
+            education_level=education_level
+        )
+        
+        # 检查响应
+        if 'error' in outline_response:
+            return jsonify({
+                'success': False, 
+                'message': f'豆包API调用失败: {outline_response["error"]["message"]}'
+            }), 500
+        
+        # 提取生成的内容
+        outline_content = outline_response['choices'][0]['message']['content']
+        
+        response_data = {
+            'success': True,
+            'message': '豆包API测试成功',
+            'data': {
+                'title': title,
+                'field': field,
+                'education_level': education_level,
+                'keywords': keywords,
+                'generated_outline': outline_content,
+                'api_usage': outline_response.get('usage', {}),
+                'model': outline_response.get('model', 'unknown')
+            }
+        }
+        
+        return jsonify(response_data)
+        
+    except Exception as e:
+        return jsonify({
+            'success': False, 
+            'message': f'测试豆包API失败: {str(e)}'
+        }), 500
