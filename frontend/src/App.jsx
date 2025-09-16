@@ -16,7 +16,6 @@ import {
   Bot
 } from 'lucide-react'
 import { PaperForm } from './PaperForm.jsx'
-import { PaperForm } from './PaperForm.jsx'
 import { ChatWindow } from './ChatWindow.jsx'
 import { UserCenter } from './UserCenter.jsx'
 
