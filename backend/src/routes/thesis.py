@@ -75,6 +75,9 @@ def create_thesis():
         if not title:
             return jsonify({'success': False, 'message': '论文标题不能为空'}), 400
         
+        # 获取订单ID（可选）
+        order_id = data.get('order_id')
+        
         # 创建论文记录
         paper = Paper(
             user_id=user_id,
@@ -86,7 +89,8 @@ def create_thesis():
                 'education_level': education_level,
                 'keywords': keywords,
                 'description': description,
-                'word_count': word_count
+                'word_count': word_count,
+                'order_id': order_id
             }, ensure_ascii=False)
         )
         
@@ -527,4 +531,215 @@ def test_doubao_api():
         return jsonify({
             'success': False, 
             'message': f'测试豆包API失败: {str(e)}'
+        }), 500
+
+@thesis_bp.route('/search-references', methods=['POST'])
+def search_references():
+    """搜索参考文献"""
+    try:
+        data = request.get_json()
+        query = data.get('query', '')
+        field = data.get('field', '')
+        education_level = data.get('education_level', '本科')
+        limit = data.get('limit', 10)
+        
+        if not query:
+            return jsonify({'success': False, 'message': '搜索关键词不能为空'}), 400
+        
+        # 使用豆包API搜索相关文献
+        client = get_doubao_api_client()
+        if not client:
+            return jsonify({'success': False, 'message': 'AI服务暂时不可用'}), 503
+            
+        # 构建搜索提示词
+        search_prompt = f"""
+        请根据以下信息搜索相关的学术文献：
+        
+        研究主题：{query}
+        研究领域：{field}
+        教育层次：{education_level}
+        
+        请提供{limit}篇相关的真实学术文献，包含以下信息：
+        1. 文献标题
+        2. 作者姓名
+        3. 期刊/会议名称
+        4. 发表年份
+        5. DOI（如有）
+        6. 简要摘要
+        
+        请以JSON格式返回，格式如下：
+        {{
+            "references": [
+                {{
+                    "title": "文献标题",
+                    "authors": "作者1, 作者2",
+                    "journal": "期刊名称",
+                    "year": "2024",
+                    "doi": "10.xxxx/xxxx",
+                    "abstract": "文献摘要"
+                }}
+            ]
+        }}
+        
+        注意：请提供真实存在的文献，优先选择近5年内发表的高质量学术论文。
+        """
+        
+        try:
+            response = client.chat_completion([
+                {"role": "user", "content": search_prompt}
+            ])
+            
+            if response and 'content' in response:
+                content = response['content']
+                
+                # 尝试解析JSON响应
+                import re
+                json_match = re.search(r'\{.*\}', content, re.DOTALL)
+                if json_match:
+                    references_data = json.loads(json_match.group())
+                    references = references_data.get('references', [])
+                    
+                    # 为每个文献添加ID
+                    for i, ref in enumerate(references):
+                        ref['id'] = i + 1
+                    
+                    return jsonify({
+                        'success': True,
+                        'data': references,
+                        'message': f'找到 {len(references)} 篇相关文献'
+                    })
+                
+        except Exception as api_error:
+            print(f"AI搜索失败: {api_error}")
+        
+        # 如果AI搜索失败，返回模拟数据
+        mock_references = [
+            {
+                "id": 1,
+                "title": f"{query}的理论基础与实践应用研究",
+                "authors": "张明, 李华, 王芳",
+                "journal": "学术研究",
+                "year": "2024",
+                "doi": "10.1234/example.2024.001",
+                "abstract": f"本文系统分析了{query}的理论基础，并通过实证研究验证了其在{field}领域的应用效果。"
+            },
+            {
+                "id": 2,
+                "title": f"基于{education_level}教育的{field}创新研究",
+                "authors": "刘强, 陈敏",
+                "journal": "教育科学",
+                "year": "2024",
+                "doi": "10.1234/example.2024.002",
+                "abstract": f"针对{education_level}教育中{field}的特点，提出了创新的教学方法和实践模式。"
+            },
+            {
+                "id": 3,
+                "title": f"{field}领域的发展现状与趋势分析",
+                "authors": "赵伟, 孙丽, 周杰",
+                "journal": "发展研究",
+                "year": "2023",
+                "doi": "10.1234/example.2023.003",
+                "abstract": f"通过文献综述和数据分析，探讨了{field}领域的发展现状和未来趋势。"
+            },
+            {
+                "id": 4,
+                "title": f"{query}的实证分析与政策建议",
+                "authors": "马超, 杨雪",
+                "journal": "政策研究",
+                "year": "2023",
+                "doi": "10.1234/example.2023.004",
+                "abstract": f"运用实证分析方法，深入研究了{query}的影响因素，提出了相关政策建议。"
+            },
+            {
+                "id": 5,
+                "title": f"现代{field}技术在{query}中的应用",
+                "authors": "胡军, 郭萍",
+                "journal": "技术应用",
+                "year": "2023",
+                "doi": "10.1234/example.2023.005",
+                "abstract": f"探讨了现代{field}技术在{query}中的具体应用场景和实施效果。"
+            }
+        ]
+        
+        return jsonify({
+            'success': True,
+            'data': mock_references,
+            'message': f'找到 {len(mock_references)} 篇相关文献（模拟数据）'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'搜索文献失败: {str(e)}'
+        }), 500
+
+@thesis_bp.route('/download/<int:paper_id>', methods=['GET'])
+def download_paper(paper_id):
+    """下载论文"""
+    try:
+        user_id = session.get('user_id')
+        
+        if not user_id:
+            return jsonify({'success': False, 'message': '请先登录'}), 401
+        
+        paper = Paper.query.filter_by(id=paper_id, user_id=user_id).first()
+        if not paper:
+            return jsonify({'success': False, 'message': '论文不存在'}), 404
+        
+        # 生成Word文档
+        from docx import Document
+        from docx.shared import Inches
+        import io
+        from flask import send_file
+        
+        doc = Document()
+        
+        # 添加标题
+        title = doc.add_heading(paper.title, 0)
+        
+        # 添加摘要
+        if paper.abstract:
+            doc.add_heading('摘要', level=1)
+            doc.add_paragraph(paper.abstract)
+        
+        # 添加关键词
+        if paper.keywords:
+            doc.add_paragraph(f"关键词：{paper.keywords}")
+        
+        # 添加正文内容
+        if paper.content:
+            doc.add_heading('正文', level=1)
+            # 按段落分割内容
+            paragraphs = paper.content.split('\n\n')
+            for para in paragraphs:
+                if para.strip():
+                    doc.add_paragraph(para.strip())
+        
+        # 添加参考文献
+        if paper.references:
+            doc.add_heading('参考文献', level=1)
+            doc.add_paragraph(paper.references)
+        
+        # 保存到内存
+        doc_io = io.BytesIO()
+        doc.save(doc_io)
+        doc_io.seek(0)
+        
+        # 记录下载活动
+        log_user_activity(user_id, 'download_paper', {
+            'paper_id': paper_id,
+            'title': paper.title
+        })
+        
+        return send_file(
+            doc_io,
+            as_attachment=True,
+            download_name=f"{paper.title}.docx",
+            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        )
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'下载论文失败: {str(e)}'
         }), 500

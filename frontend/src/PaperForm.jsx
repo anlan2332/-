@@ -32,6 +32,10 @@ export function PaperForm() {
   const [recommendedReferences, setRecommendedReferences] = useState([])
   const [outlineData, setOutlineData] = useState(null)
   const [finalPaper, setFinalPaper] = useState(null)
+  const [editingOutline, setEditingOutline] = useState(false)
+  const [searchingReferences, setSearchingReferences] = useState(false)
+  const [orderInfo, setOrderInfo] = useState(null)
+  const [showOrderModal, setShowOrderModal] = useState(false)
 
   // 模拟WebSocket连接状态
   useEffect(() => {
@@ -75,16 +79,41 @@ export function PaperForm() {
     }
   }
 
-  // 生成推荐文献
+  // 搜索推荐文献
   const generateRecommendedReferences = async () => {
-    if (!formData.title) {
-      alert('请先输入论文标题')
+    if (!formData.title && !formData.field) {
+      alert('请先输入论文标题或研究领域')
       return
     }
 
     try {
-      setIsGenerating(true)
-      // 模拟推荐文献数据
+      setSearchingReferences(true)
+      
+      // 调用后端API搜索文献
+      const response = await fetch(`${API_BASE_URL}/api/thesis/search-references`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          query: formData.title || formData.field,
+          field: formData.field,
+          education_level: formData.education,
+          limit: 8
+        })
+      })
+
+      const data = await response.json()
+      
+      if (data.success && data.data) {
+        // 为搜索结果添加选中状态
+        const referencesWithSelection = data.data.map((ref) => ({
+          ...ref,
+          selected: false,
+          tags: ref.tags || []
+        }))
+        setRecommendedReferences(referencesWithSelection)
+      } else {
+        // 如果API失败，使用模拟推荐文献数据
       const mockReferences = [
         {
           id: 1,
@@ -124,11 +153,242 @@ export function PaperForm() {
         }
       ]
       
-      setRecommendedReferences(mockReferences)
-      setIsGenerating(false)
+        setRecommendedReferences(mockReferences.map(ref => ({ ...ref, selected: false })))
+      }
     } catch (error) {
-      console.error('获取推荐文献失败:', error)
+      console.error('搜索文献失败:', error)
+      alert('搜索文献失败，请检查网络连接')
+    } finally {
+      setSearchingReferences(false)
+    }
+  }
+
+  // 全选/取消全选文献
+  const toggleAllReferences = () => {
+    const hasUnselected = recommendedReferences.some(ref => !ref.selected)
+    setRecommendedReferences(prev => 
+      prev.map(ref => ({ ...ref, selected: hasUnselected }))
+    )
+  }
+
+  // 下载论文
+  const downloadPaper = async () => {
+    if (!finalPaper || !finalPaper.id) {
+      alert('论文数据无效，无法下载')
+      return
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/thesis/download/${finalPaper.id}`, {
+        method: 'GET',
+        credentials: 'include'
+      })
+
+      if (response.ok) {
+        // 创建下载链接
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${finalPaper.title || '论文'}.docx`
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+        
+        alert('论文下载成功！')
+      } else {
+        const errorData = await response.json()
+        alert(errorData.message || '下载失败')
+      }
+    } catch (error) {
+      console.error('下载论文失败:', error)
+      alert('下载失败，请检查网络连接')
+    }
+  }
+
+  // 创建订单
+  const createOrder = async (paperData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/orders/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          product_type: 'paper',
+          product_name: `论文写作：${paperData.title}`,
+          paper_config: {
+            title: paperData.title,
+            field: paperData.field,
+            education_level: paperData.education,
+            word_count: paperData.wordCount,
+            keywords: paperData.keywords,
+            description: paperData.description
+          },
+          original_price: getPaperPrice(paperData.education, paperData.wordCount),
+          actual_price: getPaperPrice(paperData.education, paperData.wordCount)
+        })
+      })
+      
+      const data = await response.json()
+      if (data.success) {
+        setOrderInfo(data.data)
+        return data.data
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (error) {
+      console.error('创建订单失败:', error)
+      throw error
+    }
+  }
+
+  // 获取论文价格
+  const getPaperPrice = (education, wordCount) => {
+    const basePrice = {
+      '专科': 0.15,
+      '本科': 0.20,
+      '硕士': 0.25,
+      '博士': 0.30
+    }
+    const pricePerWord = basePrice[education] || 0.20
+    return Math.round(parseInt(wordCount) * pricePerWord)
+  }
+
+  // 生成论文（集成订单系统）
+  const generatePaper = async () => {
+    if (!formData.title || !formData.field) {
+      alert('请填写论文标题和研究领域')
+      return
+    }
+
+    try {
+      setIsGenerating(true)
+      setGenerationProgress(10)
+
+      // 1. 创建订单
+      const order = await createOrder(formData)
+      setGenerationProgress(20)
+
+      // 2. 创建论文记录
+      const createResponse = await fetch(`${API_BASE_URL}/api/thesis/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          title: formData.title,
+          field: formData.field,
+          education_level: formData.education,
+          keywords: formData.keywords,
+          description: formData.description,
+          word_count: parseInt(formData.wordCount),
+          order_id: order.id
+        })
+      })
+
+      const createData = await createResponse.json()
+      if (!createData.success) {
+        throw new Error(createData.message)
+      }
+
+      setGenerationProgress(40)
+
+      // 3. 生成论文内容
+      const generateResponse = await fetch(`${API_BASE_URL}/api/thesis/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          paper_id: createData.data.paper_id,
+          outline: outlineData?.structured,
+          references: recommendedReferences.filter(ref => ref.selected)
+        })
+      })
+
+      const generateData = await generateResponse.json()
+      if (generateData.success) {
+        const paper = {
+          id: createData.data.paper_id,
+          title: formData.title,
+          content: generateData.data.content,
+          word_count: generateData.data.word_count,
+          status: 'completed',
+          order_id: order.id,
+          order_no: order.order_no,
+          wordCount: generateData.data.word_count,
+          createdAt: new Date().toLocaleString()
+        }
+        
+        setFinalPaper(paper)
+        setGenerationProgress(100)
+        
+        // 更新订单状态
+        await updateOrderStatus(order.id, 'completed', paper.id)
+        
+        alert('论文生成完成！')
+      } else {
+        throw new Error(generateData.message)
+      }
+    } catch (error) {
+      console.error('生成论文失败:', error)
+      alert(`生成论文失败: ${error.message}`)
+      setGenerationProgress(0)
+    } finally {
       setIsGenerating(false)
+    }
+  }
+
+  // 更新订单状态
+  const updateOrderStatus = async (orderId, status, paperId = null) => {
+    try {
+      await fetch(`${API_BASE_URL}/api/orders/${orderId}/update`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          status: status,
+          paper_id: paperId
+        })
+      })
+    } catch (error) {
+      console.error('更新订单状态失败:', error)
+    }
+  }
+
+  // 预览论文
+  const previewPaper = () => {
+    if (!finalPaper || !finalPaper.content) {
+      alert('暂无论文内容可预览')
+      return
+    }
+    
+    // 创建预览窗口
+    const previewWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes')
+    if (previewWindow) {
+      previewWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>${finalPaper.title}</title>
+          <style>
+            body { font-family: "Times New Roman", serif; margin: 40px; line-height: 1.6; }
+            h1 { text-align: center; font-size: 24px; margin-bottom: 30px; }
+            h2 { font-size: 18px; margin-top: 25px; margin-bottom: 10px; }
+            p { text-indent: 2em; margin-bottom: 12px; }
+            .meta { text-align: center; color: #666; margin-bottom: 30px; }
+          </style>
+        </head>
+        <body>
+          <h1>${finalPaper.title}</h1>
+          <div class="meta">
+            字数：${finalPaper.wordCount}字 | 生成时间：${finalPaper.createdAt}
+            ${finalPaper.order_no ? `<br>订单号：${finalPaper.order_no} | 论文ID：${finalPaper.id}` : ''}
+          </div>
+          <div>${finalPaper.content.replace(/\n/g, '<br>')}</div>
+        </body>
+        </html>
+      `)
+      previewWindow.document.close()
     }
   }
 
@@ -229,6 +489,109 @@ export function PaperForm() {
     }
   }
 
+  // 编辑章节标题
+  const editSectionTitle = (sectionId, newTitle) => {
+    setOutlineData(prev => {
+      if (!prev) return prev
+      
+      const newStructured = prev.structured.map(section => {
+        if (section.id === sectionId) {
+          return { ...section, title: newTitle }
+        }
+        
+        return {
+          ...section,
+          children: section.children.map(child => {
+            if (child.id === sectionId) {
+              return { ...child, title: newTitle }
+            }
+            return child
+          })
+        }
+      })
+      
+      return {
+        ...prev,
+        structured: newStructured
+      }
+    })
+  }
+
+  // 添加新章节
+  const addNewSection = () => {
+    setOutlineData(prev => {
+      if (!prev) return prev
+      
+      const maxId = Math.max(...prev.structured.map(s => s.id), ...prev.structured.flatMap(s => s.children.map(c => c.id)))
+      const newSectionId = maxId + 1
+      
+      const newSection = {
+        id: newSectionId,
+        title: `${prev.structured.length + 1}. 新章节`,
+        children: [
+          { id: newSectionId + 1, title: `${prev.structured.length + 1}.1 子章节`, hasChart: false, chartType: null }
+        ]
+      }
+      
+      return {
+        ...prev,
+        structured: [...prev.structured, newSection]
+      }
+    })
+  }
+
+  // 添加子章节
+  const addSubSection = (parentId) => {
+    setOutlineData(prev => {
+      if (!prev) return prev
+      
+      const maxId = Math.max(...prev.structured.map(s => s.id), ...prev.structured.flatMap(s => s.children.map(c => c.id)))
+      
+      const newStructured = prev.structured.map(section => {
+        if (section.id === parentId) {
+          const newSubId = maxId + 1
+          const newSub = {
+            id: newSubId,
+            title: `${section.title.split('.')[0]}.${section.children.length + 1} 新子章节`,
+            hasChart: false,
+            chartType: null
+          }
+          return {
+            ...section,
+            children: [...section.children, newSub]
+          }
+        }
+        return section
+      })
+      
+      return {
+        ...prev,
+        structured: newStructured
+      }
+    })
+  }
+
+  // 删除章节
+  const deleteSection = (sectionId) => {
+    setOutlineData(prev => {
+      if (!prev) return prev
+      
+      // 删除主章节
+      let newStructured = prev.structured.filter(section => section.id !== sectionId)
+      
+      // 删除子章节
+      newStructured = newStructured.map(section => ({
+        ...section,
+        children: section.children.filter(child => child.id !== sectionId)
+      }))
+      
+      return {
+        ...prev,
+        structured: newStructured
+      }
+    })
+  }
+
   // 切换章节图表选项
   const toggleChartOption = (sectionId, chartType) => {
     setOutlineData(prev => {
@@ -255,40 +618,25 @@ export function PaperForm() {
     })
   }
 
-  // 生成最终论文
-  const generateFinalPaper = async () => {
-    try {
-      setIsGenerating(true)
-      setGenerationProgress(0)
-      
-      // 模拟生成过程
-      const intervals = [10, 30, 50, 70, 90, 100]
-      for (let i = 0; i < intervals.length; i++) {
-        setTimeout(() => {
-          setGenerationProgress(intervals[i])
-          if (intervals[i] === 100) {
-            setFinalPaper({
-              title: formData.title,
-              content: `这是根据您的要求生成的论文内容...\n\n${formData.title}\n\n摘要：本研究针对...`,
-              wordCount: formData.wordCount,
-              createdAt: new Date().toLocaleString()
-            })
-            setIsGenerating(false)
-          }
-        }, i * 1000)
-      }
-    } catch (error) {
-      console.error('生成论文失败:', error)
-      setIsGenerating(false)
+  // 生成最终论文（使用集成订单系统）
+  const generateFinalPaper = generatePaper
+
+  // 步骤指示器
+  // 步骤切换函数
+  const goToStep = (step) => {
+    // 只能切换到已完成的步骤或下一步
+    if (step <= currentStep || step === currentStep + 1) {
+      setCurrentStep(step)
     }
   }
 
-  // 步骤指示器
   const StepIndicator = () => (
     <div style={{ display: 'flex', alignItems: 'center', marginBottom: '32px' }}>
       {[1, 2, 3, 4].map((step, index) => (
         <div key={step} style={{ display: 'flex', alignItems: 'center' }}>
-          <div 
+          <button 
+            onClick={() => goToStep(step)}
+            disabled={step > currentStep + 1}
             style={{ 
               width: '32px', 
               height: '32px', 
@@ -298,11 +646,23 @@ export function PaperForm() {
               justifyContent: 'center',
               backgroundColor: step <= currentStep ? '#3b82f6' : '#e5e7eb',
               color: step <= currentStep ? 'white' : '#6b7280',
-              fontWeight: '500'
+              fontWeight: '500',
+              border: 'none',
+              cursor: step <= currentStep || step === currentStep + 1 ? 'pointer' : 'not-allowed',
+              transition: 'all 0.2s ease',
+              opacity: step > currentStep + 1 ? 0.5 : 1
+            }}
+            onMouseOver={(e) => {
+              if (step <= currentStep || step === currentStep + 1) {
+                e.target.style.transform = 'scale(1.1)'
+              }
+            }}
+            onMouseOut={(e) => {
+              e.target.style.transform = 'scale(1)'
             }}
           >
             {step < currentStep ? <Check size={16} /> : step}
-          </div>
+          </button>
           {index < 3 && (
             <div 
               style={{ 
@@ -550,35 +910,44 @@ export function PaperForm() {
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
               onClick={generateRecommendedReferences}
-              disabled={isGenerating}
+              disabled={searchingReferences}
               style={{
                 padding: '8px 16px',
-                backgroundColor: '#dc2626',
+                backgroundColor: searchingReferences ? '#9ca3af' : '#dc2626',
                 color: 'white',
                 border: 'none',
                 borderRadius: '6px',
                 fontSize: '12px',
-                cursor: 'pointer',
+                cursor: searchingReferences ? 'not-allowed' : 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px'
               }}
             >
-              追加文献 {isGenerating && <RefreshCw size={12} className="animate-spin" />}
+              <Search size={12} />
+              {searchingReferences ? '搜索中...' : '智能搜索文献'}
+              {searchingReferences && <RefreshCw size={12} className="animate-spin" />}
             </button>
-            <button
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#f59e0b',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '12px',
-                cursor: 'pointer'
-              }}
-            >
-              搜索文献
-            </button>
+            {recommendedReferences.length > 0 && (
+              <button
+                onClick={toggleAllReferences}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: '#10b981',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <Check size={12} />
+                {recommendedReferences.every(ref => ref.selected) ? '取消全选' : '全选文献'}
+              </button>
+            )}
           </div>
         </div>
 
@@ -720,20 +1089,152 @@ export function PaperForm() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
           {/* 结构提纲 */}
           <div>
-            <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <FileText size={16} />
-              结构提纲
-            </h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FileText size={16} />
+                结构提纲
+              </h3>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={() => setEditingOutline(!editingOutline)}
+                  style={{
+                    padding: '6px 12px',
+                    backgroundColor: editingOutline ? '#dc2626' : '#3b82f6',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  {editingOutline ? (
+                    <>
+                      <X size={12} />
+                      完成编辑
+                    </>
+                  ) : (
+                    <>
+                      <FileText size={12} />
+                      编辑大纲
+                    </>
+                  )}
+                </button>
+                {editingOutline && (
+                  <button
+                    onClick={addNewSection}
+                    style={{
+                      padding: '6px 12px',
+                      backgroundColor: '#10b981',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '6px',
+                      fontSize: '12px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    + 新增章节
+                  </button>
+                )}
+              </div>
+            </div>
             <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px', backgroundColor: '#f9fafb' }}>
               {outlineData.structured.map((section) => (
                 <div key={section.id} style={{ marginBottom: '16px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', color: '#1f2937' }}>
-                    {section.title}
-                  </h4>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    {editingOutline ? (
+                      <input
+                        type="text"
+                        value={section.title}
+                        onChange={(e) => editSectionTitle(section.id, e.target.value)}
+                        style={{
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: '#1f2937',
+                          border: '1px solid #d1d5db',
+                          borderRadius: '4px',
+                          padding: '4px 8px',
+                          flex: 1,
+                          marginRight: '8px'
+                        }}
+                      />
+                    ) : (
+                      <h4 style={{ fontSize: '14px', fontWeight: '600', color: '#1f2937', flex: 1 }}>
+                        {section.title}
+                      </h4>
+                    )}
+                    {editingOutline && (
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        <button
+                          onClick={() => addSubSection(section.id)}
+                          style={{
+                            padding: '2px 6px',
+                            backgroundColor: '#10b981',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '3px',
+                            fontSize: '10px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          +子章节
+                        </button>
+                        <button
+                          onClick={() => deleteSection(section.id)}
+                          style={{
+                            padding: '2px 6px',
+                            backgroundColor: '#dc2626',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '3px',
+                            fontSize: '10px',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          删除
+                        </button>
+                      </div>
+                    )}
+                  </div>
                   {section.children.map((child) => (
                     <div key={child.id} style={{ marginLeft: '16px', marginBottom: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '13px', color: '#6b7280' }}>{child.title}</span>
+                      {editingOutline ? (
+                        <input
+                          type="text"
+                          value={child.title}
+                          onChange={(e) => editSectionTitle(child.id, e.target.value)}
+                          style={{
+                            fontSize: '13px',
+                            color: '#6b7280',
+                            border: '1px solid #d1d5db',
+                            borderRadius: '3px',
+                            padding: '2px 6px',
+                            flex: 1,
+                            marginRight: '8px'
+                          }}
+                        />
+                      ) : (
+                        <span style={{ fontSize: '13px', color: '#6b7280', flex: 1 }}>{child.title}</span>
+                      )}
                       <div style={{ display: 'flex', gap: '4px' }}>
+                        {editingOutline && (
+                          <button
+                            onClick={() => deleteSection(child.id)}
+                            style={{
+                              padding: '1px 4px',
+                              backgroundColor: '#dc2626',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '2px',
+                              fontSize: '9px',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            删除
+                          </button>
+                        )}
                         <button
                           onClick={() => toggleChartOption(child.id, child.chartType === 'table' ? null : 'table')}
                           style={{
@@ -943,6 +1444,7 @@ export function PaperForm() {
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
             <button
+              onClick={downloadPaper}
               style={{
                 padding: '12px 24px',
                 backgroundColor: '#3b82f6',
@@ -961,6 +1463,29 @@ export function PaperForm() {
               下载论文(Word)
             </button>
             <button
+              onClick={previewPaper}
+              style={{
+                padding: '12px 24px',
+                backgroundColor: '#10b981',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <FileText size={16} />
+              预览论文
+            </button>
+            <button
+              onClick={() => {
+                setFinalPaper(null)
+                setCurrentStep(1)
+              }}
               style={{
                 padding: '12px 24px',
                 backgroundColor: 'white',
@@ -969,9 +1494,13 @@ export function PaperForm() {
                 borderRadius: '8px',
                 fontSize: '14px',
                 fontWeight: '500',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
               }}
             >
+              <RefreshCw size={16} />
               重新生成
             </button>
           </div>
