@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:14-alpine
+    container_name: baikao_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-baikao_db}
+      POSTGRES_USER: ${DB_USER:-baikao_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-baikao_pass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - baikao_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: baikao_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - baikao_network
+
+  # Main Application
+  baikao_app:
+    build:
+      context: ../../
+      dockerfile: deployment/docker/Dockerfile
+    container_name: baikao_app
+    environment:
+      - NODE_ENV=production
+      - FLASK_ENV=production
+      - DB_HOST=postgres
+      - DB_NAME=${DB_NAME:-baikao_db}
+      - DB_USER=${DB_USER:-baikao_user}
+      - DB_PASSWORD=${DB_PASSWORD:-baikao_pass}
+      - REDIS_HOST=redis
+      - DOUBAO_API_KEY=${DOUBAO_API_KEY}
+    ports:
+      - "80:3000"
+      - "5000:5000"
+    volumes:
+      - app_uploads:/app/uploads
+      - app_logs:/app/logs
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - baikao_network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: baikao_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/ssl/certs:ro
+    depends_on:
+      - baikao_app
+    restart: unless-stopped
+    networks:
+      - baikao_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  app_uploads:
+  app_logs:
+
+networks:
+  baikao_network:
+    driver: bridge
