@@ -1,0 +1,357 @@
+<!-- 用户提供的HTML源代码 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毕业论文 - 百考通AI写作</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5.10.0/dist/reset.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@5.10.0/dist/antd.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: #f0f2f5;
+        }
+        #root {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sider {
+            width: 200px;
+            background-color: #fff;
+            padding: 16px;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .sider-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .sider-logo img {
+            height: 32px;
+            margin-right: 8px;
+        }
+        .sider-logo span {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        .sider-menu {
+            flex-grow: 1;
+        }
+        .sider-menu .ant-menu-item {
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+        .sider-menu .ant-menu-item-selected {
+            background-color: #e6f7ff;
+            color: #1890ff;
+        }
+        .sider-menu .ant-menu-item:hover {
+            background-color: #f0f2f5;
+        }
+        .content-layout {
+            flex-grow: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #fff;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+        .header-actions .ant-btn {
+            margin-left: 16px;
+        }
+        .main-content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+        }
+        .form-section {
+            flex: 2;
+            padding-right: 24px;
+            border-right: 1px solid #f0f0f0;
+        }
+        .form-section .ant-form-item {
+            margin-bottom: 16px;
+        }
+        .form-section .ant-input-group-wrapper .ant-input-affix-wrapper {
+            border-radius: 8px;
+        }
+        .form-section .ant-select-selector {
+            border-radius: 8px;
+        }
+        .form-section .ant-radio-group {
+            margin-top: 8px;
+        }
+        .form-section .ant-btn-primary {
+            border-radius: 8px;
+        }
+        .info-section {
+            flex: 1;
+            padding-left: 24px;
+        }
+        .info-section .ant-card {
+            margin-bottom: 16px;
+            border-radius: 8px;
+        }
+        .info-section .ant-card-head {
+            border-bottom: none;
+        }
+        .info-section .ant-card-body {
+            padding-top: 0;
+        }
+        .info-section .ant-list-item {
+            padding: 8px 0;
+        }
+        .chat-section {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 300px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+        .chat-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .chat-body {
+            padding: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .chat-input .ant-input-affix-wrapper {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <aside class="sider">
+            <div class="sider-logo">
+                <img src="images/logo.jpg" alt="Logo">
+                <span>百考通</span>
+            </div>
+            <nav class="sider-menu">
+                <ul class="ant-menu ant-menu-root ant-menu-inline ant-menu-light">
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="search" class="anticon anticon-search"></span>
+                        <span>订单查询</span>
+                    </li>
+                    <li class="ant-menu-item ant-menu-item-selected">
+                        <span role="img" aria-label="file-text" class="anticon anticon-file-text"></span>
+                        <span>毕业论文</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="arrow-down" class="anticon anticon-arrow-down"></span>
+                        <span>降重/降AI</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="book" class="anticon anticon-book"></span>
+                        <span>文献综述</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="file-add" class="anticon anticon-file-add"></span>
+                        <span>开题报告</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="file-ppt" class="anticon anticon-file-ppt"></span>
+                        <span>期刊论文</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="fire" class="anticon anticon-fire"></span>
+                        <span>限时优惠</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="file-ppt" class="anticon anticon-file-ppt"></span>
+                        <span>PPT</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="solution" class="anticon anticon-solution"></span>
+                        <span>任务书</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="form" class="anticon anticon-form"></span>
+                        <span>实践报告</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="bar-chart" class="anticon anticon-bar-chart"></span>
+                        <span>数据分析</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="question-circle" class="anticon anticon-question-circle"></span>
+                        <span>问卷调查</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="code" class="anticon anticon-code"></span>
+                        <span>源码宝库</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="user" class="anticon anticon-user"></span>
+                        <span>商务代理</span>
+                    </li>
+                    <li class="ant-menu-item">
+                        <span role="img" aria-label="robot" class="anticon anticon-robot"></span>
+                        <span>人工排版</span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="content-layout">
+            <header class="header">
+                <div class="header-title">毕业论文</div>
+                <div>
+                    <button type="button" class="ant-btn ant-btn-primary">输入完整的文章标题，获得更好的生成效果</button>
+                    <button type="button" class="ant-btn ant-btn-primary">下一步</button>
+                    <button type="button" class="ant-btn ant-btn-default">
+                        <span role="img" aria-label="user" class="anticon anticon-user"></span>
+                        <span>用户中心</span>
+                    </button>
+                </div>
+            </header>
+            <div class="main-content">
+                <section class="form-section">
+                    <form class="ant-form ant-form-horizontal">
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-label">
+                                    <label for="articleTitle" class="ant-form-item-required">文章标题</label>
+                                </div>
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-input-affix-wrapper">
+                                            <input id="articleTitle" class="ant-input" type="text" placeholder="请输入标题">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-label">
+                                    <label for="education" class="ant-form-item-required">学历:</label>
+                                </div>
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-select ant-select-single ant-select-show-arrow">
+                                            <div class="ant-select-selector">
+                                                <span class="ant-select-selection-item">专科</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-label">
+                                    <label for="wordCount">论文字数:</label>
+                                </div>
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-select ant-select-single ant-select-show-arrow">
+                                            <div class="ant-select-selector">
+                                                <span class="ant-select-selection-placeholder">请选择字数</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-label">
+                                    <label>语言:</label>
+                                </div>
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-radio-group ant-radio-group-outline">
+                                            <label class="ant-radio-wrapper ant-radio-wrapper-checked">
+                                                <span class="ant-radio ant-radio-checked">
+                                                    <input type="radio" class="ant-radio-input" value="chinese" checked>
+                                                    <span class="ant-radio-inner"></span>
+                                                </span>
+                                                <span>中文</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-label">
+                                    <label>图表公式:</label>
+                                </div>
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-radio-group ant-radio-group-outline">
+                                            <label class="ant-radio-wrapper ant-radio-wrapper-checked">
+                                                <span class="ant-radio ant-radio-checked">
+                                                    <input type="radio" class="ant-radio-input" value="chartCode" checked>
+                                                    <span class="ant-radio-inner"></span>
+                                                </span>
+                                                <span>图表/公式/代码</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <button type="button" class="ant-btn ant-btn-primary">上传开题报告</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <textarea placeholder="补充说明..." class="ant-input ant-input-borderless" style="height: 120px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ant-form-item">
+                            <div class="ant-form-item-row">
+                                <div class="ant-form-item-control">
+                                    <div class="ant-form-item-control-input">
+                                        <div class="ant-space ant-space-horizontal ant-space-align-center">
+                                            <button type="button" class="ant-btn">控写论文</button>
+                                            <button type="button" class="ant-btn">摘要</button>
+                                            <button type="button" class="ant-btn">创新点</button>
+                                            <button type="button" class="ant-btn">参考文献</button>
+                                            <button type="button" class="ant-btn">研究方法</button>
+                                            <button type="button" class="ant-btn">开题报告内容模板</button>
+                                            <button type="button" class="
+(Content truncated due to size limit. Use page ranges or line ranges to read remaining content)
