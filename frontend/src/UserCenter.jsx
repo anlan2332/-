@@ -27,7 +27,7 @@ export function UserCenter() {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
+      const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
         credentials: 'include'
       })
       const data = await response.json()

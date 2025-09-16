@@ -21,6 +21,7 @@ from src.routes.dashboard import dashboard_bp
 from src.routes.auth import auth_bp
 from src.routes.user_center import user_center_bp
 from src.routes.admin import admin_bp
+from src.admin_panel import admin_panel_bp
 
 # 导入WebSocket管理器
 from src.websocket_manager import init_websocket
@@ -53,6 +54,7 @@ app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(user_center_bp, url_prefix='/api/user')
 app.register_blueprint(admin_bp, url_prefix='/api/admin')
 app.register_blueprint(thesis_bp, url_prefix='/api/thesis')
+app.register_blueprint(admin_panel_bp, url_prefix='/admin')
 
 # 数据库配置
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"

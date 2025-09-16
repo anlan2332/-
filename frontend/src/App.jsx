@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   Search, 
   FileText, 
@@ -18,9 +18,52 @@ import {
 import { PaperForm } from './PaperForm.jsx'
 import { ChatWindow } from './ChatWindow.jsx'
 import { UserCenter } from './UserCenter.jsx'
+import { AuthForm } from './AuthForm.jsx'
+import { OrderQuery } from './OrderQuery.jsx'
 
 function App() {
   const [selectedMenuItem, setSelectedMenuItem] = useState('毕业论文')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
+
+  // 检查用户登录状态
+  useEffect(() => {
+    checkAuthStatus()
+  }, [])
+
+  const checkAuthStatus = async () => {
+    try {
+      const response = await fetch('https://5001-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev/api/auth/check-session', {
+        credentials: 'include'
+      })
+      const data = await response.json()
+      if (data.success) {
+        setIsAuthenticated(true)
+        setCurrentUser(data.data)
+      }
+    } catch (error) {
+      console.error('检查登录状态失败:', error)
+    }
+  }
+
+  const handleAuthSuccess = (userData) => {
+    setIsAuthenticated(true)
+    setCurrentUser(userData)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch('https://5001-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      })
+      setIsAuthenticated(false)
+      setCurrentUser(null)
+      setSelectedMenuItem('毕业论文')
+    } catch (error) {
+      console.error('退出登录失败:', error)
+    }
+  }
 
   const menuItems = [
     { icon: Search, label: '订单查询' },
@@ -107,14 +150,25 @@ function App() {
               <button className="button">
                 下一步
               </button>
-              <button 
-                className="button" 
-                style={{ backgroundColor: 'white', color: '#374151', border: '1px solid #d1d5db' }}
-                onClick={() => setSelectedMenuItem('用户中心')}
-              >
-                <User size={16} style={{ marginRight: '8px' }} />
-                用户中心
-              </button>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button 
+                  className="button" 
+                  style={{ backgroundColor: 'white', color: '#374151', border: '1px solid #d1d5db' }}
+                  onClick={() => setSelectedMenuItem('用户中心')}
+                >
+                  <User size={16} style={{ marginRight: '8px' }} />
+                  {isAuthenticated ? currentUser?.username : '登录/注册'}
+                </button>
+                {isAuthenticated && (
+                  <button 
+                    className="button" 
+                    style={{ backgroundColor: '#ef4444', color: 'white', border: 'none' }}
+                    onClick={handleLogout}
+                  >
+                    退出
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </header>
@@ -125,13 +179,10 @@ function App() {
             {/* 左侧表单区域 */}
             <div>
               {selectedMenuItem === '毕业论文' && <PaperForm />}
-              {selectedMenuItem === '用户中心' && <UserCenter />}
-              {selectedMenuItem === '订单查询' && (
-                <div style={{ textAlign: 'center', padding: '48px 0' }}>
-                  <h3 style={{ fontSize: '18px', fontWeight: '500', color: '#4b5563', marginBottom: '16px' }}>订单查询功能</h3>
-                  <p style={{ color: '#6b7280' }}>请输入您的订单号进行查询</p>
-                </div>
+              {selectedMenuItem === '用户中心' && (
+                isAuthenticated ? <UserCenter /> : <AuthForm onAuthSuccess={handleAuthSuccess} />
               )}
+              {selectedMenuItem === '订单查询' && <OrderQuery />}
               {selectedMenuItem === '降重/降AI' && (
                 <div style={{ textAlign: 'center', padding: '48px 0' }}>
                   <h3 style={{ fontSize: '18px', fontWeight: '500', color: '#4b5563', marginBottom: '16px' }}>降重/降AI功能</h3>
