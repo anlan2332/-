@@ -1,0 +1,943 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 903-792-757
+10.12.202.44 - - [16/Sep/2025 09:34:05] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:34:11] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:34:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:34:15] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:34:24] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:34:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:38:26] "POST /api/paper/generate-title HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:38:36] "POST /api/chat/send-message HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:41:55] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:43:26] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:44:35] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:51:27] "OPTIONS /api/paper/generate-title HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:51:28] "POST /api/paper/generate-title HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:51:31] "OPTIONS /api/paper/generate-outline HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:51:32] "POST /api/paper/generate-outline HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:51:45] "OPTIONS /api/chat/send-message HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:51:45] "POST /api/chat/send-message HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:52:02] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 09:52:07] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 09:53:22] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 09:58:13] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 09:58:18] "POST /api/paper/generate-title HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:02:21] "OPTIONS /api/paper/generate-outline HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:02:22] "POST /api/paper/generate-outline HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:02:43] "OPTIONS /api/chat/send-message HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:02:44] "POST /api/chat/send-message HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:03:52] "[33mGET / HTTP/1.1[0m" 404 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 13, in <module>
+    from src.routes.dashboard import dashboard_bp
+ModuleNotFoundError: No module named 'src.routes.dashboard'
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+127.0.0.1 - - [16/Sep/2025 10:09:50] "GET /api/dashboard/stats HTTP/1.1" 200 -
+127.0.0.1 - - [16/Sep/2025 10:09:55] "POST /api/dashboard/proposal/upload HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+127.0.0.1 - - [16/Sep/2025 10:11:14] "GET /dashboard HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:12:48] "GET /dashboard HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:12:50] "GET /api/dashboard/stats HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:12:50] "GET /api/dashboard/recent-activities HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:12:50] "GET /api/dashboard/category-distribution HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:12:50] "GET /api/dashboard/paper-trends HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:13:05] "GET /dashboard HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 8, in <module>
+    from flask_socketio import SocketIO
+ModuleNotFoundError: No module named 'flask_socketio'
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+127.0.0.1 - - [16/Sep/2025 10:27:21] "GET /api/health HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:29:47] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:29:47] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:30:08] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:30:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:30:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:31:00] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:31:03] "[33mGET / HTTP/1.1[0m" 404 -
+ * Detected change in '/usr/local/lib/python3.12/site-packages/aidrive_fuse/fuse_driver.py', reloading
+ * Detected change in '/usr/local/lib/python3.12/site-packages/genspark_aidrive_sdk/client.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+127.0.0.1 - - [16/Sep/2025 10:32:02] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:32:50] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:32:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ * Detected change in '/usr/local/lib/python3.12/site-packages/fuse.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/fuse.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:33:54] "[31m[1mHEAD /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:33:54] "[33mHEAD / HTTP/1.1[0m" 404 -
+ * Detected change in '/usr/local/lib/python3.12/site-packages/fuse.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/routes/chat.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/paper.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/research.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/dashboard.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/auth.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/user_center.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/admin.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/user.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/models/database.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/utils/ai_client.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:35:29] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:35:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+127.0.0.1 - - [16/Sep/2025 10:37:15] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:37:41] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:37:41] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:38:45] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:38:45] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:39:05] "POST /api/auth/login HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:42:17] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:42:17] "GET /test HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:42:51] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:44:33] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:44:41] "POST /api/auth/register HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:44:48] "POST /api/auth/login HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:44:53] "GET /api/user/vip/packages HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:44:58] "[31m[1mGET /api/admin/writing-assistants HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:45:06] "POST /api/auth/login HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:45:06] "GET /api/admin/writing-assistants HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:45:14] "GET /api/admin/api-keys HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:45:19] "[33mGET /api/admin/system-stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:45:23] "[33mGET /api/admin/stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:45:28] "[33mGET /robots.txt HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:45:28] "GET /test HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "GET /test HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "GET /socket.io/?EIO=4&transport=polling&t=PbI8Qmt HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "POST /socket.io/?EIO=4&transport=polling&t=PbI8Qp2&sid=5Nojy4qftHm4MEyzAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "GET /socket.io/?EIO=4&transport=polling&t=PbI8QpD&sid=5Nojy4qftHm4MEyzAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:46:02] "GET /socket.io/?EIO=4&transport=polling&t=PbI8Qpt&sid=5Nojy4qftHm4MEyzAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:06] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:46:08] "GET /socket.io/?EIO=4&transport=websocket&sid=5Nojy4qftHm4MEyzAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:46:29] "[33mGET / HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:46:44] "[31m[1mGET /admin HTTP/1.1[0m" 403 -
+10.12.202.44 - - [16/Sep/2025 10:46:56] "[33mGET /admin123 HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:47:04] "[33mGET /admin%20/%20admin123 HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:47:08] "GET /test HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:10] "GET /socket.io/?EIO=4&transport=polling&t=PbI8hQ7 HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:11] "POST /socket.io/?EIO=4&transport=polling&t=PbI8hkl&sid=jKsyRSv1QQR48KqFAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:12] "GET /socket.io/?EIO=4&transport=polling&t=PbI8hkm&sid=jKsyRSv1QQR48KqFAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:12] "POST /socket.io/?EIO=4&transport=polling&t=PbI8h-F&sid=jKsyRSv1QQR48KqFAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:12] "GET /socket.io/?EIO=4&transport=polling&t=PbI8h-H&sid=jKsyRSv1QQR48KqFAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:13] "GET /socket.io/?EIO=4&transport=polling&t=PbI8i65&sid=jKsyRSv1QQR48KqFAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:19] "GET /api/user/vip/packages HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:22] "[31m[1mPOST /api/user/vip/purchase HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:47:23] "[31m[1mPOST /api/user/vip/purchase HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:47:23] "[31m[1mPOST /api/user/vip/purchase HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:47:25] "[31m[1mGET /api/admin/writing-assistants HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:47:26] "[31m[1mGET /api/admin/api-keys HTTP/1.1[0m" 401 -
+10.12.202.44 - - [16/Sep/2025 10:47:29] "[33mGET /api/admin/system-stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:47:31] "POST /api/auth/register HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:33] "POST /api/auth/login HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:47:36] "GET /admin HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:50:39] "GET /socket.io/?EIO=4&transport=polling&t=PbI9UNB HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:40] "POST /socket.io/?EIO=4&transport=polling&t=PbI9Ueg&sid=qdFhX-3aRt7wgnEDAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:40] "GET /socket.io/?EIO=4&transport=polling&t=PbI9Uem&sid=qdFhX-3aRt7wgnEDAAAA HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+10.12.202.44 - - [16/Sep/2025 10:50:41] "GET /socket.io/?EIO=4&transport=polling&t=PbI9Unb&sid=qdFhX-3aRt7wgnEDAAAA HTTP/1.1" 200 -
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:50:45] "GET /socket.io/?EIO=4&transport=polling&t=PbI9Vqq HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:45] "POST /socket.io/?EIO=4&transport=polling&t=PbI9V-S&sid=ZT24I3YzN4xHdnHxAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:45] "GET /socket.io/?EIO=4&transport=polling&t=PbI9V-W&sid=ZT24I3YzN4xHdnHxAAAA HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+10.12.202.44 - - [16/Sep/2025 10:50:46] "GET /socket.io/?EIO=4&transport=polling&t=PbI9W7e&sid=ZT24I3YzN4xHdnHxAAAA HTTP/1.1" 200 -
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+Invalid session ZT24I3YzN4xHdnHxAAAA (further occurrences of this error will be logged with level INFO)
+10.12.202.44 - - [16/Sep/2025 10:50:49] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PbI9WFC&sid=ZT24I3YzN4xHdnHxAAAA HTTP/1.1[0m" 400 -
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:50:55] "GET /socket.io/?EIO=4&transport=polling&t=PbI9Xnm HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:56] "POST /socket.io/?EIO=4&transport=polling&t=PbI9YZI&sid=1FSwRii1sv9SbijcAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:50:56] "GET /socket.io/?EIO=4&transport=polling&t=PbI9YZO&sid=1FSwRii1sv9SbijcAAAA HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+10.12.202.44 - - [16/Sep/2025 10:50:57] "GET /socket.io/?EIO=4&transport=polling&t=PbI9YqL&sid=1FSwRii1sv9SbijcAAAA HTTP/1.1" 200 -
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+Invalid session 1FSwRii1sv9SbijcAAAA (further occurrences of this error will be logged with level INFO)
+10.12.202.44 - - [16/Sep/2025 10:51:00] "[31m[1mGET /socket.io/?EIO=4&transport=polling&t=PbI9Z7Q&sid=1FSwRii1sv9SbijcAAAA HTTP/1.1[0m" 400 -
+10.12.202.44 - - [16/Sep/2025 10:51:01] "[31m[1mPOST /socket.io/?EIO=4&transport=polling&t=PbI9Zjs&sid=1FSwRii1sv9SbijcAAAA HTTP/1.1[0m" 400 -
+10.12.202.44 - - [16/Sep/2025 10:51:02] "GET /socket.io/?EIO=4&transport=polling&t=PbI9Z-a HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:51:02] "POST /socket.io/?EIO=4&transport=polling&t=PbI9a8H&sid=onFJptAT5FgIj7_oAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:51:02] "GET /socket.io/?EIO=4&transport=polling&t=PbI9a8K&sid=onFJptAT5FgIj7_oAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:51:05] "GET /socket.io/?EIO=4&transport=polling&t=PbI9aIv&sid=onFJptAT5FgIj7_oAAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:52:02] "GET /socket.io/?EIO=4&transport=websocket&sid=onFJptAT5FgIj7_oAAAA HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:53:15] "GET /socket.io/?EIO=4&transport=polling&t=PbIA3kN HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:16] "POST /socket.io/?EIO=4&transport=polling&t=PbIA4i_&sid=7i-nqT5XiTN6cxi1AAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:16] "GET /socket.io/?EIO=4&transport=polling&t=PbIA4j3&sid=7i-nqT5XiTN6cxi1AAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:17] "GET /socket.io/?EIO=4&transport=polling&t=PbIA4z2&sid=7i-nqT5XiTN6cxi1AAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:17] "GET /socket.io/?EIO=4&transport=polling&t=PbIA589&sid=7i-nqT5XiTN6cxi1AAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:24] "[33mGET /api/admin/system-stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:53:25] "[33mGET /api/admin/system-stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:53:26] "GET /socket.io/?EIO=4&transport=websocket&sid=7i-nqT5XiTN6cxi1AAAA HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:26] "GET /test HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:28] "GET /socket.io/?EIO=4&transport=polling&t=PbIA7f0 HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:29] "POST /socket.io/?EIO=4&transport=polling&t=PbIA7sj&sid=68O2OrWi7XBlVa6FAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:29] "GET /socket.io/?EIO=4&transport=polling&t=PbIA7sl&sid=68O2OrWi7XBlVa6FAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:29] "[33mGET /api/admin/system-stats HTTP/1.1[0m" 404 -
+10.12.202.44 - - [16/Sep/2025 10:53:30] "GET /socket.io/?EIO=4&transport=polling&t=PbIA80P&sid=68O2OrWi7XBlVa6FAAAC HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:31] "GET /api/admin/writing-assistants HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:32] "GET /api/admin/api-keys HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:34] "GET /api/admin/writing-assistants HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:36] "GET /api/user/vip/packages HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:37] "[31m[1mPOST /api/user/vip/purchase HTTP/1.1[0m" 400 -
+10.12.202.44 - - [16/Sep/2025 10:53:39] "GET /api/health HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:53:48] "[31m[1mPOST /api/auth/register HTTP/1.1[0m" 400 -
+10.12.202.44 - - [16/Sep/2025 10:53:49] "POST /api/auth/login HTTP/1.1" 200 -
+10.12.202.44 - - [16/Sep/2025 10:54:05] "GET /socket.io/?EIO=4&transport=websocket&sid=68O2OrWi7XBlVa6FAAAC HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Traceback (most recent call last):
+  File "/home/user/webapp/backend/src/main.py", line 45, in <module>
+    from src.routes.thesis import thesis_bp
+  File "/home/user/webapp/backend/src/routes/thesis.py", line 9, in <module>
+    from src.models.database import db, User, Paper, WritingAssistant, APIKey, UserActivity
+ImportError: cannot import name 'UserActivity' from 'src.models.database' (/home/user/webapp/backend/src/models/database.py)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/usr/local/lib/python3.12/site-packages/supervisor/options.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 10:59:16] "GET /api/health HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+10.12.202.44 - - [16/Sep/2025 11:00:37] "GET /api/user/vip/packages HTTP/1.1" 200 -
+ * Detected change in '/home/user/webapp/backend/src/routes/thesis.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/websocket_manager.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://169.254.0.21:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+ * Debugger is active!
+ * Debugger PIN: 141-989-138
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Detected change in '/home/user/webapp/backend/src/main.py', reloading
+ * Restarting with watchdog (inotify)

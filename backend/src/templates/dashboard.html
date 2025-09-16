@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百考通AI - 数据仪表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+        }
+        
+        .dashboard {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+        }
+        
+        .stat-card.papers {
+            border-color: #3b82f6;
+        }
+        
+        .stat-card.users {
+            border-color: #10b981;
+        }
+        
+        .stat-card.success {
+            border-color: #8b5cf6;
+        }
+        
+        .stat-card.time {
+            border-color: #f59e0b;
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .papers .stat-icon { background: #3b82f6; }
+        .users .stat-icon { background: #10b981; }
+        .success .stat-icon { background: #8b5cf6; }
+        .time .stat-icon { background: #f59e0b; }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        
+        .chart-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        .activities-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-success {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .status-processing {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-failed {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transition: all 0.2s;
+        }
+        
+        .refresh-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1><i class="fas fa-chart-bar"></i> 数据仪表板</h1>
+            <p>实时监控平台运行状态和业务数据</p>
+        </div>
+        
+        <div class="stats-grid" id="statsGrid">
+            <!-- 统计卡片将通过JavaScript动态加载 -->
+        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-title">论文生成趋势</div>
+                <div class="chart-container">
+                    <canvas id="trendsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-title">类别分布</div>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activities-card">
+            <div class="chart-title">最近活动</div>
+            <div id="activitiesList">
+                <!-- 活动列表将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="refreshDashboard()">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script>
+        let trendsChart, categoryChart;
+        
+        // 加载仪表板数据
+        async function loadDashboard() {
+            try {
+                await Promise.all([
+                    loadStats(),
+                    loadTrends(),
+                    loadCategories(),
+                    loadActivities()
+                ]);
+            } catch (error) {
+                console.error('加载仪表板数据失败:', error);
+            }
+        }
+        
+        // 加载统计数据
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/dashboard/stats');
+                const result = await response.json();
+                
+                if (result.success) {
+                    renderStats(result.data);
+                }
+            } catch (error) {
+                console.error('加载统计数据失败:', error);
+            }
+        }
+        
+        // 渲染统计卡片
+        function renderStats(stats) {
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = `
+                <div class="stat-card papers">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-value">${stats.total_papers.toLocaleString()}</div>
+                    <div class="stat-label">总论文数 (今日: ${stats.today_papers})</div>
+                </div>
+                
+                <div class="stat-card users">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">${stats.total_users.toLocaleString()}</div>
+                    <div class="stat-label">总用户数 (活跃: ${stats.active_users})</div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value">${stats.success_rate}%</div>
+                    <div class="stat-label">成功率</div>
+                </div>
+                
+                <div class="stat-card time">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value">${stats.avg_completion_time}</div>
+                    <div class="stat-label">平均完成时间(分钟)</div>
+                </div>
+            `;
+        }
+        
+        // 加载趋势数据
+        async function loadTrends() {
+            try {
+                const response = await fetch('/api/dashboard/paper-trends');
+                const result = await response.json();
+                
+                if (result.success) {
+                    renderTrendsChart(result.data);
+                }
+            } catch (error) {
+                console.error('加载趋势数据失败:', error);
+            }
+        }
+        
+        // 渲染趋势图表
+        function renderTrendsChart(trends) {
+            const ctx = document.getElementById('trendsChart').getContext('2d');
+            
+            if (trendsChart) {
+                trendsChart.destroy();
+            }
+            
+            trendsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: trends.map(t => t.date.substring(5)),
+                    datasets: [{
+                        label: '论文数量',
+                        data: trends.map(t => t.papers),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: '用户数量',
+                        data: trends.map(t => t.users),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 加载分类数据
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/dashboard/category-distribution');
+                const result = await response.json();
+                
+                if (result.success) {
+                    renderCategoryChart(result.data);
+                }
+            } catch (error) {
+                console.error('加载分类数据失败:', error);
+            }
+        }
+        
+        // 渲染分类图表
+        function renderCategoryChart(categories) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            
+            if (categoryChart) {
+                categoryChart.destroy();
+            }
+            
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categories.map(c => c.name),
+                    datasets: [{
+                        data: categories.map(c => c.count),
+                        backgroundColor: categories.map(c => c.color),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 加载活动数据
+        async function loadActivities() {
+            try {
+                const response = await fetch('/api/dashboard/recent-activities');
+                const result = await response.json();
+                
+                if (result.success) {
+                    renderActivities(result.data);
+                }
+            } catch (error) {
+                console.error('加载活动数据失败:', error);
+            }
+        }
+        
+        // 渲染活动列表
+        function renderActivities(activities) {
+            const activitiesList = document.getElementById('activitiesList');
+            activitiesList.innerHTML = activities.map(activity => {
+                const statusClass = activity.status === '完成' ? 'status-success' : 
+                                  activity.status === '处理中' ? 'status-processing' : 'status-failed';
+                
+                return `
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">${activity.type} - ${activity.user}</div>
+                            <div class="activity-time">${new Date(activity.time).toLocaleString()}</div>
+                        </div>
+                        <div class="status-badge ${statusClass}">
+                            ${activity.status}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // 刷新仪表板
+        function refreshDashboard() {
+            const btn = document.querySelector('.refresh-btn i');
+            btn.style.animation = 'spin 1s linear';
+            
+            loadDashboard().finally(() => {
+                setTimeout(() => {
+                    btn.style.animation = '';
+                }, 1000);
+            });
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+        
+        // 自动刷新 (每30秒)
+        setInterval(loadDashboard, 30000);
+        
+        // 添加旋转动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
