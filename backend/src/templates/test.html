@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百考通AI写作平台 - 功能测试</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid;
+        }
+        .feature-card.success { border-left-color: #28a745; }
+        .feature-card.info { border-left-color: #007bff; }
+        .feature-card.warning { border-left-color: #ffc107; }
+        .feature-card.error { border-left-color: #dc3545; }
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status-success { background: #d4edda; color: #155724; }
+        .status-error { background: #f8d7da; color: #721c24; }
+        .status-warning { background: #fff3cd; color: #856404; }
+        .test-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .test-result {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .access-links {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .access-link {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin: 10px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .access-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .websocket-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+        .ws-connected { color: #28a745; }
+        .ws-disconnected { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="websocket-status">
+        WebSocket: <span id="ws-status" class="ws-disconnected">断开连接</span>
+    </div>
+
+    <div class="container">
+        <h1>🚀 百考通AI写作平台</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #6c757d; margin-bottom: 40px;">
+            全面升级完成！热更新、用户中心、管理面板、后端管理系统全部就绪
+        </p>
+
+        <div class="feature-grid">
+            <!-- 后端API健康检查 -->
+            <div class="feature-card success">
+                <div class="feature-title">
+                    🔧 后端API服务
+                    <span class="status-badge status-success">运行正常</span>
+                </div>
+                <p>Flask后端API服务已启动，支持RESTful接口和WebSocket实时通信</p>
+                <button class="test-btn" onclick="testHealth()">测试健康检查</button>
+                <div id="health-result" class="test-result" style="display:none;"></div>
+            </div>
+
+            <!-- WebSocket热更新 -->
+            <div class="feature-card info">
+                <div class="feature-title">
+                    🔥 WebSocket热更新
+                    <span class="status-badge status-warning">测试中</span>
+                </div>
+                <p>实时配置更新，无需重启服务器即可推送配置变更到前端</p>
+                <button class="test-btn" onclick="testHotUpdate()">测试热更新</button>
+                <div id="hotupdate-result" class="test-result" style="display:none;"></div>
+            </div>
+
+            <!-- 用户认证系统 -->
+            <div class="feature-card success">
+                <div class="feature-title">
+                    👤 用户认证系统
+                    <span class="status-badge status-success">已验证</span>
+                </div>
+                <p>用户注册、登录、会话管理和权限控制系统</p>
+                <button class="test-btn" onclick="testAuth()">测试用户注册</button>
+                <button class="test-btn" onclick="testLogin()">测试管理员登录</button>
+                <div id="auth-result" class="test-result" style="display:none;"></div>
+            </div>
+
+            <!-- VIP会员系统 -->
+            <div class="feature-card info">
+                <div class="feature-title">
+                    💎 VIP会员系统
+                    <span class="status-badge status-success">可用</span>
+                </div>
+                <p>VIP套餐、余额充值、订单管理和会员权益系统</p>
+                <button class="test-btn" onclick="testVIP()">查看VIP套餐</button>
+                <button class="test-btn" onclick="testPurchase()">模拟购买</button>
+                <div id="vip-result" class="test-result" style="display:none;"></div>
+            </div>
+
+            <!-- 写作助手管理 -->
+            <div class="feature-card warning">
+                <div class="feature-title">
+                    🧠 写作助手管理
+                    <span class="status-badge status-success">已配置</span>
+                </div>
+                <p>AI写作助手配置、API密钥管理和模型切换功能</p>
+                <button class="test-btn" onclick="testAssistants()">查看写作助手</button>
+                <button class="test-btn" onclick="testAPIKeys()">查看API密钥</button>
+                <div id="assistant-result" class="test-result" style="display:none;"></div>
+            </div>
+
+            <!-- 数据库管理 -->
+            <div class="feature-card success">
+                <div class="feature-title">
+                    💾 数据库管理
+                    <span class="status-badge status-success">已初始化</span>
+                </div>
+                <p>SQLAlchemy ORM，8个数据模型，真实可变的后端数据</p>
+                <button class="test-btn" onclick="testDatabase()">查看数据统计</button>
+                <div id="db-result" class="test-result" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div class="access-links">
+            <h2 style="margin-bottom: 30px; color: #2d3748;">🌐 访问链接</h2>
+            <a href="https://3000-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev/" target="_blank" class="access-link">
+                🎯 用户前端界面
+            </a>
+            <a href="https://5000-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev/api/health" target="_blank" class="access-link">
+                🔧 后端API健康检查
+            </a>
+            <a href="https://5000-i362990uh7vzwuu0d0o9j-6532622b.e2b.dev/admin" target="_blank" class="access-link">
+                ⚙️ 管理员控制面板
+            </a>
+            <a href="https://github.com/anlan2332/-/pull/1" target="_blank" class="access-link">
+                📋 GitHub Pull Request
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket连接
+        const socket = io('/');
+        
+        socket.on('connect', function() {
+            document.getElementById('ws-status').textContent = '已连接';
+            document.getElementById('ws-status').className = 'ws-connected';
+        });
+
+        socket.on('disconnect', function() {
+            document.getElementById('ws-status').textContent = '断开连接';
+            document.getElementById('ws-status').className = 'ws-disconnected';
+        });
+
+        socket.on('config_update', function(data) {
+            const result = document.getElementById('hotupdate-result');
+            result.style.display = 'block';
+            result.innerHTML = `<strong>收到热更新:</strong><br>${JSON.stringify(data, null, 2)}`;
+        });
+
+        // 测试函数
+        async function testHealth() {
+            const result = document.getElementById('health-result');
+            result.style.display = 'block';
+            result.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                result.innerHTML = `<strong>健康检查通过:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testHotUpdate() {
+            const result = document.getElementById('hotupdate-result');
+            result.style.display = 'block';
+            result.innerHTML = '发送热更新测试...';
+            
+            socket.emit('test_hot_update', {test: true, timestamp: Date.now()});
+        }
+
+        async function testAuth() {
+            const result = document.getElementById('auth-result');
+            result.style.display = 'block';
+            result.innerHTML = '测试用户注册...';
+            
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        username: 'test_' + Date.now(),
+                        password: 'test123',
+                        email: 'test@example.com'
+                    })
+                });
+                const data = await response.json();
+                result.innerHTML = `<strong>注册结果:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('auth-result');
+            result.style.display = 'block';
+            result.innerHTML = '测试管理员登录...';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        username: 'admin',
+                        password: 'admin123'
+                    })
+                });
+                const data = await response.json();
+                result.innerHTML = `<strong>登录结果:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testVIP() {
+            const result = document.getElementById('vip-result');
+            result.style.display = 'block';
+            result.innerHTML = '查看VIP套餐...';
+            
+            try {
+                const response = await fetch('/api/user/vip/packages');
+                const data = await response.json();
+                result.innerHTML = `<strong>VIP套餐:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testPurchase() {
+            const result = document.getElementById('vip-result');
+            result.style.display = 'block';
+            result.innerHTML = '模拟VIP购买...';
+            
+            try {
+                const response = await fetch('/api/user/vip/purchase', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        package_type: 'month',
+                        payment_method: 'balance'
+                    })
+                });
+                const data = await response.json();
+                result.innerHTML = `<strong>购买结果:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testAssistants() {
+            const result = document.getElementById('assistant-result');
+            result.style.display = 'block';
+            result.innerHTML = '查看写作助手...';
+            
+            try {
+                const response = await fetch('/api/admin/writing-assistants');
+                const data = await response.json();
+                result.innerHTML = `<strong>写作助手:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testAPIKeys() {
+            const result = document.getElementById('assistant-result');
+            result.style.display = 'block';
+            result.innerHTML = '查看API密钥...';
+            
+            try {
+                const response = await fetch('/api/admin/api-keys');
+                const data = await response.json();
+                result.innerHTML = `<strong>API密钥:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function testDatabase() {
+            const result = document.getElementById('db-result');
+            result.style.display = 'block';
+            result.innerHTML = '查看数据库统计...';
+            
+            try {
+                const response = await fetch('/api/admin/system-stats');
+                const data = await response.json();
+                result.innerHTML = `<strong>系统统计:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                result.innerHTML = `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,638 @@
+2025-09-16T09:37:53: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:38:52: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:39:17: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:40:33: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:41:08: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:42:33: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:44:02: 
+> baikaotong-ai@0.0.0 dev
+> vite
+
+2025-09-16T09:44:59: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:44:59:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:44:59:               ^
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: SyntaxError: Invalid or unexpected token
+2025-09-16T09:44:59:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:44:59:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:44:59:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:44:59:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:44:59:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: Node.js v20.19.3
+2025-09-16T09:44:59: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:44:59:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:44:59:               ^
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: SyntaxError: Invalid or unexpected token
+2025-09-16T09:44:59:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:44:59:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:44:59:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:44:59:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:44:59:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: Node.js v20.19.3
+2025-09-16T09:44:59: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:44:59:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:44:59:               ^
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: SyntaxError: Invalid or unexpected token
+2025-09-16T09:44:59:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:44:59:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:44:59:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:44:59:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:44:59:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: Node.js v20.19.3
+2025-09-16T09:44:59: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:44:59:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:44:59:               ^
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: SyntaxError: Invalid or unexpected token
+2025-09-16T09:44:59:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:44:59:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:44:59:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:44:59:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:44:59:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:44:59: 
+2025-09-16T09:44:59: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:45:00: file:///home/user/webapp/frontend/simple-server.js:443
+2025-09-16T09:45:00:   console.log(\`Frontend server running on http://0.0.0.0:\${PORT}\`);
+2025-09-16T09:45:00:               ^
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: SyntaxError: Invalid or unexpected token
+2025-09-16T09:45:00:     at compileSourceTextModule (node:internal/modules/esm/utils:346:16)
+2025-09-16T09:45:00:     at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:146:18)
+2025-09-16T09:45:00:     at #translate (node:internal/modules/esm/loader:431:12)
+2025-09-16T09:45:00:     at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:478:27)
+2025-09-16T09:45:00:     at async ModuleJob._link (node:internal/modules/esm/module_job:110:19)
+2025-09-16T09:45:00: 
+2025-09-16T09:45:00: Node.js v20.19.3
+2025-09-16T09:46:24: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:24: const express = require('express');
+2025-09-16T09:46:24:                 ^
+2025-09-16T09:46:24: 
+2025-09-16T09:46:24: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:24: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:24:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:24:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:24:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:24:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:24: 
+2025-09-16T09:46:24: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:25: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:25: const express = require('express');
+2025-09-16T09:46:25:                 ^
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:25: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:25:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:25:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:25:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:25:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:25: 
+2025-09-16T09:46:25: Node.js v20.19.3
+2025-09-16T09:46:26: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:26: const express = require('express');
+2025-09-16T09:46:26:                 ^
+2025-09-16T09:46:26: 
+2025-09-16T09:46:26: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:26: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:26:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:26:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:26:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:26:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:26: 
+2025-09-16T09:46:26: Node.js v20.19.3
+2025-09-16T09:46:26: file:///home/user/webapp/frontend/simple-server.js:1
+2025-09-16T09:46:26: const express = require('express');
+2025-09-16T09:46:26:                 ^
+2025-09-16T09:46:26: 
+2025-09-16T09:46:26: ReferenceError: require is not defined in ES module scope, you can use import instead
+2025-09-16T09:46:26: This file is being treated as an ES module because it has a '.js' file extension and '/home/user/webapp/frontend/package.json' contains "type": "module". To treat it as a CommonJS script, rename it to use the '.cjs' file extension.
+2025-09-16T09:46:26:     at file:///home/user/webapp/frontend/simple-server.js:1:17
+2025-09-16T09:46:26:     at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+2025-09-16T09:46:26:     at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+2025-09-16T09:46:26:     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+2025-09-16T09:46:26: 
+2025-09-16T09:46:26: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:21: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:21:   throw err;
+2025-09-16T09:48:21:   ^
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:21:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:21:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:21:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:21:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:21:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:21:   requireStack: []
+2025-09-16T09:48:21: }
+2025-09-16T09:48:21: 
+2025-09-16T09:48:21: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:22: node:internal/modules/cjs/loader:1215
+2025-09-16T09:48:22:   throw err;
+2025-09-16T09:48:22:   ^
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Error: Cannot find module '/home/user/webapp/frontend/simple-server.js'
+2025-09-16T09:48:22:     at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+2025-09-16T09:48:22:     at Module._load (node:internal/modules/cjs/loader:1043:27)
+2025-09-16T09:48:22:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+2025-09-16T09:48:22:     at node:internal/main/run_main_module:28:49 {
+2025-09-16T09:48:22:   code: 'MODULE_NOT_FOUND',
+2025-09-16T09:48:22:   requireStack: []
+2025-09-16T09:48:22: }
+2025-09-16T09:48:22: 
+2025-09-16T09:48:22: Node.js v20.19.3
+2025-09-16T09:48:34: Frontend server running on http://0.0.0.0:3000
+2025-09-16T09:50:02: Frontend server running on http://0.0.0.0:3000
